@@ -195,8 +195,8 @@ section{position:relative;padding:var(--s7) clamp(1.3rem,5vw,3rem)}
   padding:8rem 1.3rem 5rem;position:relative;overflow:hidden}
 .hero-mandala{position:absolute;top:48%;left:50%;width:min(112vw,860px);aspect-ratio:1;transform:translate(-50%,-50%);
   z-index:0;opacity:.85;will-change:transform}
-.hero-mandala .ring-spin{transform-origin:center;animation:spin 140s linear infinite}
-.hero-mandala .ring-spin-rev{transform-origin:center;animation:spin 110s linear infinite reverse}
+.hero-mandala .ring-spin{transform-box:fill-box;transform-origin:center;animation:spin 140s linear infinite}
+.hero-mandala .ring-spin-rev{transform-box:fill-box;transform-origin:center;animation:spin 110s linear infinite reverse}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hero-inner{position:relative;z-index:2;max-width:780px}
 .hero-logo{display:block;width:auto;height:clamp(70px,11vw,116px);margin:0 auto 1.5rem;position:relative;z-index:2;filter:drop-shadow(0 8px 26px rgba(0,0,0,.45));animation:fadeUp 1.1s .1s cubic-bezier(.16,1,.3,1) backwards}
