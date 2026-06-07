@@ -261,6 +261,17 @@ section{position:relative;padding:var(--s7) clamp(1.3rem,5vw,3rem)}
 .quote-band blockquote{font-family:var(--serif);font-style:italic;font-size:clamp(1.7rem,4vw,2.6rem);line-height:1.35;color:var(--gold-light);max-width:920px;margin:1.6rem auto}
 .quote-band .mk-lg{width:46px;height:46px;margin:0 auto;opacity:.7}
 .quote-band cite{display:block;margin-top:1.4rem;font-style:normal;letter-spacing:.16em;text-transform:uppercase;font-size:.76rem;color:var(--text-dim)}
+.quote-track{display:flex;flex-direction:column;align-items:center}
+.quote-slide{width:100%;max-width:920px;margin:0 auto}
+.quote-slide+.quote-slide{margin-top:3rem}
+.quote-hint{display:none;margin-top:1.4rem;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7}
+@media(max-width:768px){
+  .quote-track{flex-direction:row;flex-wrap:nowrap;align-items:stretch;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;scrollbar-width:none;padding:0 7%}
+  .quote-track::-webkit-scrollbar{display:none}
+  .quote-slide{flex:0 0 86%;scroll-snap-align:center;margin:0!important;display:flex;flex-direction:column;justify-content:center}
+  .quote-slide+.quote-slide{margin-top:0!important}
+  .quote-hint{display:block}
+}
 
 /* ============================================================ DETAILS */
 .details{border-top:1px solid rgba(217,178,94,.14);border-bottom:1px solid rgba(217,178,94,.14);background:linear-gradient(180deg,rgba(27,15,44,.6),rgba(10,5,16,.3))}
@@ -330,7 +341,8 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
 /* ============================================================ BREAKPOINTS */
 @media(max-width:1024px){
   .split,.hosts{grid-template-columns:1fr;gap:2.5rem}
-  .split .visual{aspect-ratio:16/10;max-height:420px}
+  .split .visual{aspect-ratio:9/16;max-height:none;max-width:400px;margin-left:auto;margin-right:auto}
+  .split .visual img{object-fit:contain}
   .foot-grid{grid-template-columns:1fr 1fr;gap:2.5rem}
   .foot-brand{grid-column:1/-1}
 }
@@ -603,14 +615,19 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
 
 <!-- ===================== TESTIMONIAL ===================== -->
 <section class="quote-band">
-  <div class="narrow reveal">
+  <div class="reveal">
     <svg class="mk-lg" style="color:var(--gold)"><use href="#mk"/></svg>
-    <blockquote>“I came in carrying a whole week in my shoulders. Somewhere in that hour the sound just took it from me. I have never felt my body let go that completely.”</blockquote>
-    <cite>— Danielle R., Edmonton</cite>
-  </div>
-  <div class="narrow reveal" style="margin-top:3.5rem">
-    <blockquote>“Jeanine made me feel completely safe from the moment I arrived. I am someone who can never switch off, and somehow, with her holding the space, I actually rested. I left lighter than I have felt in months.”</blockquote>
-    <cite>— Marisa L., Edmonton</cite>
+    <div class="quote-track">
+      <div class="quote-slide">
+        <blockquote>“I came in carrying a whole week in my shoulders. Somewhere in that hour the sound just took it from me. I have never felt my body let go that completely.”</blockquote>
+        <cite>— Danielle R., Edmonton</cite>
+      </div>
+      <div class="quote-slide">
+        <blockquote>“Jeanine made me feel completely safe from the moment I arrived. I am someone who can never switch off, and somehow, with her holding the space, I actually rested. I left lighter than I have felt in months.”</blockquote>
+        <cite>— Marisa L., Edmonton</cite>
+      </div>
+    </div>
+    <div class="quote-hint" aria-hidden="true">Swipe ›</div>
   </div>
 </section>
 
