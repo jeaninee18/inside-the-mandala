@@ -777,21 +777,44 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
     if(!open){q.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}
   });});
 
-  /* ---- email signup (no backend yet; friendly confirmation) ---- */
+  /* ---- Mailchimp signup (JSONP, stays on page) ---- */
+  var MC_URL='https://themindfulmandalawellness.us12.list-manage.com/subscribe/post-json?u=7d0bab3f2c497053290270103&id=2203fd6a70&f_id=004467e9f0';
+  function mcEmailValid(e){return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e);}
+  function mcClean(m){return (m||'').replace(/^\d+\s*-\s*/,'').replace(/<[^>]+>/g,'');}
+  function mcSubscribe(email,onResult){
+    var cb='mcjsonp_'+Date.now(), s=document.createElement('script');
+    window[cb]=function(data){
+      onResult((data&&data.result)||'error',(data&&data.msg)||'Something went wrong, please try again.');
+      try{delete window[cb];}catch(_){window[cb]=undefined;}
+      if(s.parentNode)s.parentNode.removeChild(s);
+    };
+    s.src=MC_URL+'&EMAIL='+encodeURIComponent(email)+'&c='+cb;
+    document.body.appendChild(s);
+  }
   var signupForm=document.getElementById('signupForm'),
       formMsg=document.getElementById('formMsg');
   if(signupForm){signupForm.addEventListener('submit',function(e){
     e.preventDefault();
-    if(formMsg){formMsg.textContent='Thank you. You are on the list \u2014 watch your inbox for early-bird access.';}
-    signupForm.reset();
+    var email=((document.getElementById('emailInput')||{}).value||'').trim();
+    if(!mcEmailValid(email)){if(formMsg)formMsg.textContent='Please enter a valid email.';return;}
+    if(formMsg)formMsg.textContent='One moment…';
+    mcSubscribe(email,function(result,msg){
+      if(result==='success'){if(formMsg)formMsg.textContent='Thank you. You are on the list, watch your inbox for early-bird access.';signupForm.reset();}
+      else if(/already subscribed/i.test(msg)){if(formMsg)formMsg.textContent='You are already on our list. See you in the dome.';}
+      else if(formMsg)formMsg.textContent=mcClean(msg);
+    });
   });}
-
   var footForm=document.getElementById('footForm');
   if(footForm){footForm.addEventListener('submit',function(e){
     e.preventDefault();
-    var btn=footForm.querySelector('button');
-    if(btn){btn.textContent='Joined';}
-    footForm.reset();
+    var inp=footForm.querySelector('input[type=email]'),btn=footForm.querySelector('button');
+    var email=(inp?inp.value:'').trim();
+    if(!mcEmailValid(email)){if(btn)btn.textContent='Enter email';return;}
+    if(btn)btn.textContent='…';
+    mcSubscribe(email,function(result,msg){
+      if(result==='success'||/already subscribed/i.test(msg)){if(btn)btn.textContent='Joined ✓';footForm.reset();}
+      else if(btn)btn.textContent='Try again';
+    });
   });}
 })();
 </script>
