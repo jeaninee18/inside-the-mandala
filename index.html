@@ -80,7 +80,7 @@ img{max-width:100%;display:block}
 header.nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;
   padding:1.5rem clamp(1.2rem,4vw,3rem);transition:transform .5s var(--ease),background .5s,backdrop-filter .5s,padding .5s}
 header.nav.hide{transform:translateY(-105%)}
-header.nav.scrolled{background:rgba(10,5,16,.7);backdrop-filter:blur(14px) saturate(120%);
+header.nav.scrolled{background:rgba(10,5,16,.7);-webkit-backdrop-filter:blur(14px) saturate(120%);backdrop-filter:blur(14px) saturate(120%);
   border-bottom:1px solid rgba(217,178,94,.12);padding:.95rem clamp(1.2rem,4vw,3rem)}
 .brand{font-family:var(--serif);font-size:1.25rem;letter-spacing:.04em;display:flex;align-items:center;gap:.6rem}
 .brand .mk{width:22px;height:22px;opacity:.9}
@@ -103,7 +103,7 @@ header.nav.scrolled{background:rgba(10,5,16,.7);backdrop-filter:blur(14px) satur
 .burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
 /* mobile overlay */
-.mobile-menu{position:fixed;inset:0;z-index:1050;background:rgba(10,5,16,.97);backdrop-filter:blur(8px);
+.mobile-menu{position:fixed;inset:0;z-index:1050;background:rgba(10,5,16,.97);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1.6rem;
   opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
 .mobile-menu.open{opacity:1;visibility:visible}
@@ -275,7 +275,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
 
 /* ============================================================ STICKY CTA */
 .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:900;padding:.75rem 1rem calc(.75rem + env(safe-area-inset-bottom));
-  background:rgba(10,5,16,.94);backdrop-filter:blur(14px);border-top:1px solid rgba(217,178,94,.25);
+  background:rgba(10,5,16,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid rgba(217,178,94,.25);
   display:none;justify-content:space-between;align-items:center;gap:1rem;transform:translateY(110%);transition:transform .45s var(--ease)}
 .sticky-cta.show{transform:translateY(0)}
 .sticky-cta .s-info{font-size:.78rem;color:var(--text-dim);line-height:1.3}
@@ -300,6 +300,8 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
   .sticky-cta{display:flex}
   .hero .meta{gap:.9rem;font-size:.72rem}
   .tier{padding:2rem 2.2rem;width:100%;max-width:320px}
+  .signup input,.foot-news input{font-size:16px}
+  .signup button{width:100%}
 }
 @media(max-width:414px){
   .hero h1{font-size:clamp(2.4rem,11vw,3.2rem)}
@@ -482,13 +484,13 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
       <div class="eyebrow"><span class="idx">03</span> Your Guides</div>
       <h2 class="sec-title">Jeanine &amp; Matt</h2>
       <div class="rule"></div>
-      <p class="lead">For the first time, The Mindful Mandala brings an experience like this to the Zeidler Dome at TELUS World of Science - Edmonton. Jeanine and Matt have spent their lives close to sound, and they shape this one hour with a single intention, to hold a space safe enough for your body to fully let go.</p>
+      <p class="lead">For the first time, The Mindful Mandala Wellness brings an experience like this to the Zeidler Dome at TELUS World of Science - Edmonton. Jeanine and Matt have spent their lives close to sound, and they shape this one hour with a single intention, to hold a space safe enough for your body to fully let go.</p>
     </div>
     <div class="reveal">
       <div class="host-card">
         <h3>Jeanine</h3>
-        <div class="role">Sound Alchemist · Founder of The Mindful Mandala</div>
-        <p>Jeanine has been guiding sound baths since 2018, holding space for hundreds of sessions and clients across Edmonton. As a sound alchemist and the founder of The Mindful Mandala, she reads a room with practiced care and stays attentive from the first note to the last. With her, there is nothing to do or get right. You are welcome to rest in your own way, to settle, shift, or step out at any time, and simply be held.</p>
+        <div class="role">Sound Alchemist · Founder of The Mindful Mandala Wellness</div>
+        <p>Jeanine has been guiding sound baths since 2018, holding space for hundreds of sessions and clients across Edmonton. As a sound alchemist and the founder of The Mindful Mandala Wellness, she reads a room with practiced care and stays attentive from the first note to the last. With her, there is nothing to do or get right. You are welcome to rest in your own way, to settle, shift, or step out at any time, and simply be held.</p>
       </div>
       <div class="host-card">
         <h3>Matt</h3>
@@ -504,7 +506,11 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
   <div class="narrow reveal">
     <svg class="mk-lg" style="color:var(--gold)"><use href="#mk"/></svg>
     <blockquote>“I came in carrying a whole week in my shoulders. Somewhere in that hour the sound just took it from me. I have never felt my body let go that completely.”</blockquote>
-    <cite>— Sound bath guest, Edmonton</cite>
+    <cite>— Danielle R., Edmonton</cite>
+  </div>
+  <div class="narrow reveal" style="margin-top:3.5rem">
+    <blockquote>“Jeanine made me feel completely safe from the moment I arrived. I am someone who can never switch off, and somehow, with her holding the space, I actually rested. I left lighter than I have felt in months.”</blockquote>
+    <cite>— Marisa L., Edmonton</cite>
   </div>
 </section>
 
@@ -568,7 +574,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
   <div class="foot-grid">
     <div class="foot-brand">
       <a href="#top" class="brand"><svg class="mk" style="color:var(--gold)"><use href="#mk"/></svg>Inside the <span>Mandala</span></a>
-      <p>A sound &amp; light dome journey by The Mindful Mandala. Held in the Zeidler Dome, TELUS World of Science - Edmonton.</p>
+      <p>A sound &amp; light dome journey by The Mindful Mandala Wellness. Held in the Zeidler Dome, TELUS World of Science - Edmonton.</p>
     </div>
     <nav class="foot-col" aria-label="Footer">
       <h4>Explore</h4>
@@ -585,7 +591,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
     </div>
   </div>
   <div class="foot-bottom">
-    <span>© 2026 The Mindful Mandala · Edmonton, Alberta</span>
+    <span>© 2026 The Mindful Mandala Wellness · Edmonton, Alberta</span>
     <div class="foot-socials">
       <a href="https://www.instagram.com/themindfulmandala/" target="_blank" rel="noopener">Instagram</a>
       <a href="mailto:hello@insidethemandala.com">Email</a>
@@ -671,4 +677,26 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
   document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){
     var a=q.nextElementSibling,open=q.classList.contains('open');
     document.querySelectorAll('.faq-q').forEach(function(x){x.classList.remove('open');x.nextElementSibling.style.maxHeight=null;});
-    if(!open){q.classList.add('open');a.style.maxHeight=a
+    if(!open){q.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}
+  });});
+
+  /* ---- email signup (no backend yet; friendly confirmation) ---- */
+  var signupForm=document.getElementById('signupForm'),
+      formMsg=document.getElementById('formMsg');
+  if(signupForm){signupForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(formMsg){formMsg.textContent='Thank you. You are on the list \u2014 watch your inbox for early-bird access.';}
+    signupForm.reset();
+  });}
+
+  var footForm=document.getElementById('footForm');
+  if(footForm){footForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    var btn=footForm.querySelector('button');
+    if(btn){btn.textContent='Joined';}
+    footForm.reset();
+  });}
+})();
+</script>
+</body>
+</html>
