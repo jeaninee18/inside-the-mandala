@@ -84,6 +84,7 @@ header.nav.scrolled{background:rgba(10,5,16,.7);-webkit-backdrop-filter:blur(14p
   border-bottom:1px solid rgba(217,178,94,.12);padding:.95rem clamp(1.2rem,4vw,3rem)}
 .brand{font-family:var(--serif);font-size:1.25rem;letter-spacing:.04em;display:flex;align-items:center;gap:.6rem}
 .brand .mk{width:22px;height:22px;opacity:.9}
+.brand img.mk{width:auto;height:34px;opacity:1}
 .brand span{color:var(--gold-light)}
 .nav-links{display:flex;gap:2.1rem;align-items:center}
 .nav-links a{font-family:var(--sans);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);
@@ -155,6 +156,7 @@ section{position:relative;padding:var(--s7) clamp(1.3rem,5vw,3rem)}
 .hero-mandala .ring-spin-rev{transform-origin:center;animation:spin 110s linear infinite reverse}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hero-inner{position:relative;z-index:2;max-width:780px}
+.hero-logo{display:block;width:auto;height:clamp(70px,11vw,116px);margin:0 auto 1.5rem;position:relative;z-index:2;filter:drop-shadow(0 8px 26px rgba(0,0,0,.45));opacity:0;animation:fadeUp 1.1s .1s var(--ease) both}
 .hero .kicker{font-family:var(--sans);font-weight:300;letter-spacing:.4em;text-transform:uppercase;font-size:.74rem;color:var(--gold);margin-bottom:1.8rem;opacity:0;animation:fadeUp 1.1s .2s var(--ease) both}
 .hero h1{font-size:clamp(2.9rem,9vw,6.2rem);letter-spacing:.01em}
 .hero h1 .line{display:block;overflow:hidden}
@@ -344,7 +346,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
 
 <!-- ===================== NAV ===================== -->
 <header class="nav" id="nav">
-  <a href="#top" class="brand"><svg class="mk" style="color:var(--gold)"><use href="#mk"/></svg>Inside the <span>Mandala</span></a>
+  <a href="#top" class="brand"><img class="mk" src="logo.png" alt="The Mindful Mandala Wellness" />Inside the <span>Mandala</span></a>
   <nav class="nav-links" aria-label="Primary">
     <a href="#experience">Experience</a>
     <a href="#expect">What to Expect</a>
@@ -401,6 +403,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
   </div>
 
   <div class="hero-inner">
+    <img class="hero-logo" src="logo.png" alt="The Mindful Mandala Wellness" />
     <div class="kicker">A 360° Dome Sound Journey · Edmonton</div>
     <h1>
       <span class="line"><span>Inside the</span></span>
@@ -573,7 +576,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
 <footer>
   <div class="foot-grid">
     <div class="foot-brand">
-      <a href="#top" class="brand"><svg class="mk" style="color:var(--gold)"><use href="#mk"/></svg>Inside the <span>Mandala</span></a>
+      <a href="#top" class="brand"><img class="mk" src="logo.png" alt="The Mindful Mandala Wellness" />Inside the <span>Mandala</span></a>
       <p>A sound &amp; light dome journey by The Mindful Mandala Wellness. Held in the Zeidler Dome, TELUS World of Science - Edmonton.</p>
     </div>
     <nav class="foot-col" aria-label="Footer">
