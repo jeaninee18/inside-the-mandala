@@ -73,6 +73,42 @@ img{max-width:100%;display:block}
 }
 @keyframes meshDrift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(0,-2%,0) scale(1.05)}}
 #stars{position:fixed;inset:0;z-index:-4;pointer-events:none}
+.starfield-css{position:fixed;inset:0;z-index:-4;pointer-events:none;background-repeat:repeat;background-size:400px 400px;
+  background-image:
+    radial-gradient(1.1px 1.1px at 165px 77px, rgba(255,255,255,0.39), transparent 60%),
+    radial-gradient(1.0px 1.0px at 274px 48px, rgba(255,255,255,0.9), transparent 60%),
+    radial-gradient(0.7px 0.7px at 109px 19px, rgba(236,212,154,0.39), transparent 60%),
+    radial-gradient(1.1px 1.1px at 46px 282px, rgba(224,179,207,0.42), transparent 60%),
+    radial-gradient(1.4px 1.4px at 114px 322px, rgba(255,255,255,0.7), transparent 60%),
+    radial-gradient(1.8px 1.8px at 203px 25px, rgba(255,255,255,0.68), transparent 60%),
+    radial-gradient(1.1px 1.1px at 68px 148px, rgba(224,179,207,0.42), transparent 60%),
+    radial-gradient(1.6px 1.6px at 157px 286px, rgba(255,255,255,0.41), transparent 60%),
+    radial-gradient(0.8px 0.8px at 292px 327px, rgba(255,255,255,0.68), transparent 60%),
+    radial-gradient(0.7px 0.7px at 32px 288px, rgba(255,255,255,0.65), transparent 60%),
+    radial-gradient(1.5px 1.5px at 272px 218px, rgba(236,212,154,0.7), transparent 60%),
+    radial-gradient(1.0px 1.0px at 232px 185px, rgba(255,255,255,0.77), transparent 60%),
+    radial-gradient(1.3px 1.3px at 124px 41px, rgba(224,179,207,0.65), transparent 60%),
+    radial-gradient(1.1px 1.1px at 175px 373px, rgba(224,179,207,0.94), transparent 60%),
+    radial-gradient(1.1px 1.1px at 60px 262px, rgba(236,212,154,0.44), transparent 60%),
+    radial-gradient(0.6px 0.6px at 250px 215px, rgba(224,179,207,0.4), transparent 60%),
+    radial-gradient(1.5px 1.5px at 285px 293px, rgba(236,212,154,0.55), transparent 60%),
+    radial-gradient(1.2px 1.2px at 179px 304px, rgba(236,212,154,0.39), transparent 60%),
+    radial-gradient(1.2px 1.2px at 47px 138px, rgba(224,179,207,0.39), transparent 60%),
+    radial-gradient(1.0px 1.0px at 374px 359px, rgba(224,179,207,0.95), transparent 60%),
+    radial-gradient(1.5px 1.5px at 228px 145px, rgba(224,179,207,0.56), transparent 60%),
+    radial-gradient(0.8px 0.8px at 236px 181px, rgba(255,255,255,0.65), transparent 60%),
+    radial-gradient(0.9px 0.9px at 111px 393px, rgba(224,179,207,0.5), transparent 60%),
+    radial-gradient(0.7px 0.7px at 200px 254px, rgba(236,212,154,0.59), transparent 60%),
+    radial-gradient(1.6px 1.6px at 142px 70px, rgba(224,179,207,0.52), transparent 60%),
+    radial-gradient(1.4px 1.4px at 212px 183px, rgba(236,212,154,0.92), transparent 60%),
+    radial-gradient(0.8px 0.8px at 77px 42px, rgba(255,255,255,0.75), transparent 60%),
+    radial-gradient(1.6px 1.6px at 6px 248px, rgba(255,255,255,0.51), transparent 60%),
+    radial-gradient(1.1px 1.1px at 2px 74px, rgba(236,212,154,0.72), transparent 60%),
+    radial-gradient(1.4px 1.4px at 163px 64px, rgba(224,179,207,0.92), transparent 60%),
+    radial-gradient(1.5px 1.5px at 335px 346px, rgba(236,212,154,0.89), transparent 60%),
+    radial-gradient(1.6px 1.6px at 399px 348px, rgba(236,212,154,0.59), transparent 60%),
+    radial-gradient(1.2px 1.2px at 201px 53px, rgba(236,212,154,0.39), transparent 60%),
+    radial-gradient(1.1px 1.1px at 34px 106px, rgba(255,255,255,0.55), transparent 60%);}
 .grain{position:fixed;inset:0;z-index:-3;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 #cursor-glow{position:fixed;top:0;left:0;width:480px;height:480px;border-radius:50%;z-index:-2;pointer-events:none;
@@ -378,6 +414,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
 <body>
 
 <div class="bg-base"></div>
+<div class="starfield-css" aria-hidden="true"></div>
 <div class="bg-mesh"></div>
 <canvas id="stars"></canvas>
 <div class="grain"></div>
@@ -492,7 +529,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
 <section id="experience">
   <div class="wrap split">
     <div class="visual reveal">
-      <img src="dome-aurora.jpg" alt="Inside the dome — a 360° aurora sky above reclined guests at the Zeidler Dome" loading="lazy" decoding="async" width="1600" height="896" />
+      <img src="dome-mandala.jpg" alt="Inside the dome — a glowing sacred-geometry mandala of light filling the 360° ceiling above reclined guests" loading="lazy" decoding="async" width="1040" height="1849" />
       <span class="figtag">The Dome · Edmonton</span>
     </div>
     <div class="story reveal">
