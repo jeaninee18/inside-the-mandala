@@ -14,6 +14,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','999907942879676');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=999907942879676&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 <style>
   :root{
     --black:#0A0A0A; --indigo:#0D1B2A; --gold:#C9A84C; --ember:#E85D04;
@@ -382,6 +392,7 @@
       if(res.error){if(res.error.code==="23505"){nForm.style.display="none";nMsg.textContent="You are already on the list.";return;}nBtn.disabled=false;nMsg.textContent="Please try again in a moment.";return;}
       nForm.style.display="none";
       nMsg.textContent="You are on the list. We will write before the next session.";
+      if(window.fbq)fbq('track','Lead');
     });
   });
 
@@ -423,6 +434,9 @@
     entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
   },{threshold:0.12});
   document.querySelectorAll('.reveal,.stagger').forEach(function(el){io.observe(el);});
+
+  // Meta Pixel: track a conversion when someone clicks through to buy tickets
+  document.querySelectorAll('a[href*="eventbrite.com"]').forEach(function(a){a.addEventListener('click',function(){if(window.fbq)fbq('track','InitiateCheckout');});});
 </script>
 </body>
 </html>
