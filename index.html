@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0A">
 <title>NightSky Sessions · Foo Fighters · TELUS World of Science - Edmonton</title>
-<meta name="description" content="An acoustic session at TELUS World of Science - Edmonton. The songs of Foo Fighters, stripped of stadium production, played under a projected night sky. 200 seats. September 12, 2026. Not a cover. A confession.">
+<meta name="description" content="An acoustic session at TELUS World of Science - Edmonton. The songs of Foo Fighters, played under a projected night sky. 200 seats. The September date is postponed due to flooding at the venue. Join the waitlist for the new date.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="NightSky Sessions: Foo Fighters">
-<meta property="og:description" content="One guitar. The sky above you. 200 seats at TELUS World of Science - Edmonton. September 12, 2026. Not a cover. A confession.">
+<meta property="og:description" content="One guitar. The sky above you. 200 seats at TELUS World of Science - Edmonton. The September date is postponed due to flooding at the venue. Join the waitlist for the new date.">
 <meta property="og:image" content="nightsky_sessions_panorama_transparent.png">
 <link rel="icon" type="image/png" href="nightsky_sessions_dome_submark_transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -190,6 +190,16 @@ fbq('track','PageView');
     .hero-bg{transform:none!important}
     .scroll-progress{display:none}
   }
+  .notice{background:var(--indigo);text-align:center;border-top:1px solid rgba(232,93,4,.55);border-bottom:1px solid rgba(232,93,4,.55)}
+  .notice .wrap{max-width:780px}
+  .notice .eyebrow{color:var(--ember);margin-bottom:16px}
+  .notice h2{font-size:clamp(30px,5vw,52px);color:var(--gold);margin-bottom:26px}
+  .notice p{color:rgba(240,236,228,.9);margin:0 auto 18px;max-width:640px;font-size:clamp(17px,2vw,20px);line-height:1.55}
+  .wait-form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:540px;margin:38px auto 0}
+  .wait-form input{flex:1 1 220px;background:rgba(10,10,10,.5);border:1px solid var(--smoke);color:var(--offwhite);font-family:"Source Sans 3",sans-serif;font-size:16px;padding:14px 16px;min-height:50px}
+  .wait-form input:focus{outline:none;border-color:var(--gold)}
+  .wait-form .btn{min-height:50px}
+  .wait-msg{font-size:15px;color:var(--gold);margin-top:16px;min-height:18px}
 </style>
 </head>
 <body>
@@ -204,7 +214,7 @@ fbq('track','PageView');
     <a href="#session">the session</a>
     <a href="#room">the room</a>
     <a href="#details">details</a>
-    <a href="https://www.eventbrite.com/e/nightsky-sesions-foo-fighters-tickets-1991490859771" target="_blank" rel="noopener">tickets</a>
+    <a href="#waitlist">waitlist</a>
   </nav>
 </header>
 
@@ -217,9 +227,9 @@ fbq('track','PageView');
     <a href="#session">the session</a>
     <a href="#room">the room</a>
     <a href="#details">details</a>
-    <a href="https://www.eventbrite.com/e/nightsky-sesions-foo-fighters-tickets-1991490859771" target="_blank" rel="noopener">tickets</a>
+    <a href="#waitlist">waitlist</a>
   </nav>
-  <div class="mo-cta"><a href="https://www.eventbrite.com/e/nightsky-sesions-foo-fighters-tickets-1991490859771" class="btn" target="_blank" rel="noopener">get tickets</a></div>
+  <div class="mo-cta"><a href="#waitlist" class="btn">join the waitlist</a></div>
 </div>
 
 <div id="top"></div>
@@ -229,10 +239,26 @@ fbq('track','PageView');
   <div class="hero-inner">
     <h1>The songs you built<br>a life around.</h1>
     <p class="tagline">Come back to the part of yourself that was listening.</p>
-    <a href="https://www.eventbrite.com/e/nightsky-sesions-foo-fighters-tickets-1991490859771" class="btn" target="_blank" rel="noopener">get tickets</a>
-    <p class="meta">12 September 2026 &nbsp;·&nbsp; TELUS World of Science - Edmonton &nbsp;·&nbsp; 200 Seats</p>
+    <p style="color:var(--ember);font-weight:600;letter-spacing:.06em;margin-bottom:26px;font-size:15px">The September date is postponed. The show is not cancelled.</p>
+    <a href="#waitlist" class="btn">join the waitlist</a>
+    <p class="meta">New date to be announced &nbsp;·&nbsp; TELUS World of Science - Edmonton &nbsp;·&nbsp; 200 Seats</p>
   </div>
   <div class="scroll-cue">scroll</div>
+</section>
+
+<section class="notice" id="waitlist">
+  <div class="wrap reveal">
+    <p class="meta eyebrow">An update on NightSky Sessions</p>
+    <h2>The September show is postponed.</h2>
+    <p>We are sorry to share that TELUS World of Science - Edmonton is temporarily closed due to flooding, so we need to move our evening in the dome. The show is not cancelled. It is postponed, and we fully intend to gather under the stars as planned, on a new date as soon as the venue reopens.</p>
+    <p>If you would like to be the first to know the new date, please join the waitlist. We will write to you the moment we have news.</p>
+    <form class="wait-form" id="waitForm" novalidate>
+      <label for="waitEmail" style="position:absolute;left:-9999px">Email</label>
+      <input type="email" id="waitEmail" name="email" placeholder="you@email.com" autocomplete="email" inputmode="email" required>
+      <button type="submit" class="btn" id="waitSubmit">Join the waitlist</button>
+    </form>
+    <p class="wait-msg" id="waitMsg" role="status" aria-live="polite"></p>
+  </div>
 </section>
 
 <section class="feature" id="session">
@@ -282,9 +308,9 @@ fbq('track','PageView');
     <div class="section-head reveal"><h2>Sessions.</h2></div>
     <div class="reveal">
       <div class="session-row">
-        <div class="num"><span class="meta">Session 01 &nbsp;·&nbsp; 12 Sep 2026</span></div>
+        <div class="num"><span class="meta">Session 01 &nbsp;·&nbsp; Date to be announced</span></div>
         <div class="name">Foo Fighters</div>
-        <div class="status"><a class="meta status-live" href="https://www.eventbrite.com/e/nightsky-sesions-foo-fighters-tickets-1991490859771" target="_blank" rel="noopener">Tickets live</a></div>
+        <div class="status"><a class="meta status-live" href="#waitlist">Waitlist open</a></div>
       </div>
       <div class="session-row future">
         <div class="num"><span class="meta">Session 02 &nbsp;·&nbsp; Date soon</span></div>
@@ -299,12 +325,12 @@ fbq('track','PageView');
   <div class="practical reveal">
     <h2>Before you come.</h2>
     <div class="detail-list">
-      <div><p class="label meta">Date</p><p class="val">Saturday, 12 September 2026</p></div>
+      <div><p class="label meta">Date</p><p class="val">New date to be announced</p></div>
       <div><p class="label meta">Doors &amp; show</p><p class="val">Check in by 6:30pm. Doors 6:45pm. Show 7pm to 8pm.</p></div>
       <div><p class="label meta">Venue</p><p class="val">TELUS World of Science - Edmonton</p></div>
       <div><p class="label meta">Good to know</p><p class="val">Free parking. No food or liquids in the dome.</p></div>
     </div>
-    <p class="fine">Late entry is not permitted. Bring a blanket to get comfortable. About 20 beanbag chairs, first come, first served. Not a cover. A confession.</p>
+    <p class="fine">Late entry is not permitted. Bring a blanket to get comfortable. About 20 beanbag chairs, first come, first served.</p>
   </div>
 </section>
 
@@ -318,10 +344,10 @@ fbq('track','PageView');
 
 <section class="closing" id="reserve">
   <div class="wrap reveal">
-    <h2>Hold a seat in the room.</h2>
+    <h2>Hold your place in the room.</h2>
     <p class="tagline">One guitar. The sky above you. Two hundred seats.</p>
-    <a href="https://www.eventbrite.com/e/nightsky-sesions-foo-fighters-tickets-1991490859771" class="btn" target="_blank" rel="noopener">get tickets</a>
-    <p class="meta" style="margin-top:40px">12 September 2026 &nbsp;·&nbsp; TELUS World of Science - Edmonton &nbsp;·&nbsp; 200 Seats</p>
+    <a href="#waitlist" class="btn">join the waitlist</a>
+    <p class="meta" style="margin-top:40px">New date to be announced &nbsp;·&nbsp; TELUS World of Science - Edmonton &nbsp;·&nbsp; 200 Seats</p>
   </div>
 </section>
 
@@ -330,7 +356,7 @@ fbq('track','PageView');
     <div class="footer-top">
       <div class="footer-brand">
         <img src="nightsky_sessions_wordmark_transparent_800w.png" alt="NightSky Sessions">
-        <p class="foot-tag">Not a cover. A confession.</p>
+        <p class="foot-tag">An acoustic session under the dome.</p>
       </div>
       <nav class="footer-col" aria-label="Explore">
         <h3>Explore</h3>
@@ -338,7 +364,7 @@ fbq('track','PageView');
           <li><a href="#session">The session</a></li>
           <li><a href="#room">The room</a></li>
           <li><a href="#details">Details</a></li>
-          <li><a href="https://www.eventbrite.com/e/nightsky-sesions-foo-fighters-tickets-1991490859771" target="_blank" rel="noopener">Get tickets</a></li>
+          <li><a href="#waitlist">Join the waitlist</a></li>
         </ul>
       </nav>
       <div class="footer-col">
@@ -369,7 +395,7 @@ fbq('track','PageView');
 </footer>
 
 <div class="sticky-cta" id="stickyCta">
-  <a href="https://www.eventbrite.com/e/nightsky-sesions-foo-fighters-tickets-1991490859771" class="btn btn-block" target="_blank" rel="noopener">get tickets &nbsp;·&nbsp; 12 Sep</a>
+  <a href="#waitlist" class="btn btn-block">join the waitlist</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -395,6 +421,24 @@ fbq('track','PageView');
       if(window.fbq)fbq('track','Lead');
     });
   });
+
+  // Waitlist -> mailing_list table (tagged as waitlist)
+  var wForm=document.getElementById('waitForm');
+  var wMsg=document.getElementById('waitMsg');
+  var wBtn=document.getElementById('waitSubmit');
+  if(wForm){
+    wForm.addEventListener('submit',function(e){
+      e.preventDefault();
+      var email=document.getElementById('waitEmail').value.trim();
+      if(!emailOk(email)){wMsg.textContent="Please check your email address.";return;}
+      wBtn.disabled=true;wMsg.textContent="";
+      sb.from('mailing_list').insert({email:email.toLowerCase(),source:'waitlist'}).then(function(res){
+        if(res.error){if(res.error.code==="23505"){wForm.style.display="none";wMsg.textContent="You are already on the waitlist. We will be in touch.";return;}wBtn.disabled=false;wMsg.textContent="Please try again in a moment.";return;}
+        wForm.style.display="none";
+        wMsg.textContent="You are on the waitlist. We will write the moment we have a new date.";
+      });
+    });
+  }
 
   // Nav: smart hide + scrolled state, scroll progress, sticky CTA
   var nav=document.getElementById('nav');
