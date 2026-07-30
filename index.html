@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!-- Built with web-design-enforcer v1.0 — tier: $50k Luxury Editorial — Inside the Mandala -->
 <html lang="en">
 <head>
@@ -232,7 +232,7 @@ section{position:relative;padding:var(--s7) clamp(1.3rem,5vw,3rem)}
 .marquee{border-top:1px solid rgba(217,178,94,.14);border-bottom:1px solid rgba(217,178,94,.14);padding:1.4rem 0;overflow:hidden;white-space:nowrap}
 .marquee-track{display:inline-flex;gap:3rem;animation:marq 32s linear infinite;will-change:transform}
 .marquee span{font-family:var(--serif);font-style:italic;font-size:1.35rem;color:var(--gold-light);opacity:.8}
-.marquee span::after{content:"âœ¦";margin-left:3rem;color:var(--rose);font-style:normal;font-size:.8rem;vertical-align:middle}
+.marquee span::after{content:"✦";margin-left:3rem;color:var(--rose);font-style:normal;font-size:.8rem;vertical-align:middle}
 @keyframes marq{to{transform:translateX(-50%)}}
 
 /* ============================================================ EXPERIENCE / EDITORIAL */
@@ -629,11 +629,11 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
     <svg class="mk-lg" style="color:var(--gold)"><use href="#mk"/></svg>
     <div class="quote-track">
       <div class="quote-slide">
-        <blockquote>“I came in carrying a whole week in my shoulders. Somewhere in that hour the sound just took it from me. I have never felt my body let go that completely.”</blockquote>
+        <blockquote>“I came in carrying a whole week in my shoulders. Somewhere in that hour the sound just took it from me. I was half asleep by the end and didn't want to get up.”</blockquote>
         <cite>— Danielle R., Edmonton</cite>
       </div>
       <div class="quote-slide">
-        <blockquote>“Jeanine made me feel completely safe from the moment I arrived. I am someone who can never switch off, and somehow, with her holding the space, I actually rested. I left lighter than I have felt in months.”</blockquote>
+        <blockquote>“Jeanine made me feel completely safe from the moment I arrived. I'm someone who can never switch off, and somehow I actually rested. I slept better that night than I had all week.”</blockquote>
         <cite>— Marisa L., Edmonton</cite>
       </div>
     </div>
@@ -843,7 +843,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
     if(!mcEmailValid(email)){if(btn)btn.textContent='Enter email';return;}
     if(btn)btn.textContent='…';
     mcSubscribe(email,function(result,msg){
-      if(result==='success'||/already subscribed/i.test(msg)){if(btn)btn.textContent='Joined âœ“';footForm.reset();}
+      if(result==='success'||/already subscribed/i.test(msg)){if(btn)btn.textContent='Joined ✓';footForm.reset();}
       else if(btn)btn.textContent='Try again';
     });
   });}
