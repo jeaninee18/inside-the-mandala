@@ -75,7 +75,7 @@ def draw_tracked(draw, x, y, f, text, tracking, fill):
         x += f.getlength(c) + tracking
 
 
-def render_card(card, font_dir, path):
+def render_card(card, font_dir, path, center_y=H / 2):
     lines = []
     total_h = 0
     for text, weight, size, track_em, gap in card["lines"]:
@@ -88,7 +88,7 @@ def render_card(card, font_dir, path):
 
     text_layer = Image.new("L", (W, H), 0)
     d = ImageDraw.Draw(text_layer)
-    y = (H - total_h) / 2
+    y = center_y - total_h / 2
     block_w = max(tracked_width(f, t, tr) for t, f, tr, _, _ in lines)
 
     # Feathered veil behind the whole block: reads as natural falloff, not a box.
