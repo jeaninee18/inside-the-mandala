@@ -13,6 +13,14 @@ Look: the real mandala footage is AI-upscaled to 2K (ByteDance) before framing, 
 | Silent version (add Instagram audio in-app) | https://d2ol7oe51mr4n9.cloudfront.net/user_3JHT4aDk3vKqcuSTkdUYk78fxwp/252f20a3-2b47-4c14-bbb9-c253f741a39a.mp4 |
 | Cover frame | https://d2ol7oe51mr4n9.cloudfront.net/user_3JHT4aDk3vKqcuSTkdUYk78fxwp/400a21c9-448e-47da-8ad6-0b496676ab7d.jpg |
 
+### Previous versions
+
+| Version | Reel with sound | Silent | Notes |
+| --- | --- | --- | --- |
+| Version 2 | [Download v2](https://d2ol7oe51mr4n9.cloudfront.net/user_3JHT4aDk3vKqcuSTkdUYk78fxwp/dbc27515-9543-4be6-afff-bd73e39e3b3c.mp4) | [Download v2 silent](https://d2ol7oe51mr4n9.cloudfront.net/user_3JHT4aDk3vKqcuSTkdUYk78fxwp/85c31b45-ffb8-4ec9-bc6b-119d5f57e6db.mp4) | Outward zoom, no rotation, before the 2K upscale |
+
+To save on iPhone: open this page in Safari, press and hold a link, tap **Download Linked File**, then open Files, Downloads, tap the video, Share, **Save Video**.
+
 ## Storyboard
 
 | Time | Shot | On-screen text | Outward zoom | Rotation | Sharpness v2 to v3 |
