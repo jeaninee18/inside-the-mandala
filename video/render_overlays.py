@@ -6,7 +6,7 @@ then composited on top with alpha fades. Audio is copied untouched.
 Usage:
     python3 render_overlays.py SOURCE.mov OUTPUT.mp4 FONT_DIR
 
-FONT_DIR must contain jost-300.ttf and jost-400.ttf (Jost, the site's sans).
+FONT_DIR must contain jost-400.ttf and jost-500.ttf (Jost, the site's sans).
 """
 import os
 import subprocess
@@ -24,33 +24,33 @@ CARDS = [
     {
         "name": "title",
         "start": 0.0, "end": 2.0,
-        "lines": [("INSIDE THE MANDALA", 400, 58, 0.32, 0)],
+        "lines": [("INSIDE THE MANDALA", 500, 68, 0.17, 0)],
     },
     {
         "name": "experience",
         "start": 2.0, "end": 4.5,
         "lines": [
-            ("AN IMMERSIVE", 400, 32, 0.48, 28),
-            ("SOUND HEALING EXPERIENCE", 400, 44, 0.24, 0),
+            ("AN IMMERSIVE", 500, 40, 0.34, 32),
+            ("SOUND HEALING EXPERIENCE", 500, 52, 0.13, 0),
         ],
     },
     {
         "name": "details",
         "start": 4.5, "end": 7.0,
         "lines": [
-            ("JANUARY 17, 2027", 400, 50, 0.26, 24),
-            ("6:30 PM", 300, 36, 0.38, 52),
-            ("ZEIDLER DOME", 400, 42, 0.34, 22),
-            ("TELUS WORLD OF SCIENCE \u2013 EDMONTON", 300, 29, 0.24, 0),
+            ("JANUARY 17, 2027", 500, 62, 0.18, 28),
+            ("6:30 PM", 400, 46, 0.28, 58),
+            ("ZEIDLER DOME", 500, 54, 0.24, 26),
+            ("TELUS WORLD OF SCIENCE \u2013 EDMONTON", 400, 36, 0.12, 0),
         ],
     },
     {
         "name": "tickets",
         "start": 7.0, "end": None,  # holds to the final frame
         "lines": [
-            ("TICKETS", 400, 32, 0.56, 40),
-            ("insidethemandala.com", 400, 74, 0.06, 40),
-            ("LINK IN BIO", 300, 30, 0.46, 0),
+            ("TICKETS", 500, 42, 0.40, 44),
+            ("insidethemandala.com", 500, 88, 0.02, 44),
+            ("LINK IN BIO", 400, 38, 0.32, 0),
         ],
     },
 ]
