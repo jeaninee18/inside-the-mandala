@@ -20,4 +20,4 @@ Each project lives in its own folder under `Projects/`. Each folder has a `READM
 
 ## Deployment note
 
-Sites that were deployed from a repository root now live in a subfolder. In Vercel, set each project's Root Directory to its folder under `Projects/` (for example `Projects/inside-the-mandala`).
+The Inside the Mandala Vercel project deploys from this repository root. `vercel.json` rewrites the site root into `Projects/inside-the-mandala`, so no dashboard change is needed. For any other project deployed from this vault, set its Vercel Root Directory to its folder under `Projects/`.

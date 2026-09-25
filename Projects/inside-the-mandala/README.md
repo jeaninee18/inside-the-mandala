@@ -2,7 +2,7 @@
 
 **Stream:** The Mindful Mandala Wellness
 **Status:** Live, event Jan 17 2027
-**Deploy:** Vercel, Root Directory `Projects/inside-the-mandala`
+**Deploy:** Vercel, from repository root via `vercel.json` rewrite
 
 ## What this is
 
@@ -18,7 +18,7 @@ Landing page for the Inside the Mandala sound and light dome journey at the Zeid
 
 ## Next action
 
-Update the Vercel Root Directory to `Projects/inside-the-mandala` so the live site keeps deploying from this vault.
+Confirm the live site still renders after the vault merge. Root `vercel.json` rewrites `/` into this folder.
 
 ## Parked
 
