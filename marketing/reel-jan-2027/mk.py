@@ -55,7 +55,7 @@ g[:, :, 3] = r[:, None].astype(np.uint8)
 Image.fromarray(g, 'RGBA').save('grad.png')
 
 # Crystal bowl strikes on each cut over a soft low drone
-sr = 48000; T = 26.3; t = np.arange(int(sr * T)) / sr; out = np.zeros_like(t)
+sr = 48000; T = 21.6; t = np.arange(int(sr * T)) / sr; out = np.zeros_like(t)
 
 
 def bowl(t0, f, amp, tau=7.0):
@@ -68,8 +68,8 @@ def bowl(t0, f, amp, tau=7.0):
     return x
 
 
-for t0, f, a, tau in [(0.1, 261.63, .30, 7), (4.1, 392.0, .18, 7), (8.2, 329.63, .22, 7), (11.1, 196.0, .25, 7),
-                      (15.2, 293.66, .2, 7), (19.3, 261.63, .32, 9), (19.35, 523.25, .10, 9)]:
+for t0, f, a, tau in [(0.1, 261.63, .30, 7), (3.5, 392.0, .18, 7), (7.6, 329.63, .22, 7), (10.5, 196.0, .25, 7),
+                      (14.6, 261.63, .32, 9), (14.65, 523.25, .10, 9)]:
     out += bowl(t0, f, a, tau)
 out += 0.05 * (np.sin(2 * np.pi * 65.41 * t) + 0.6 * np.sin(2 * np.pi * 98.0 * t)) * (0.8 + 0.2 * np.sin(2 * np.pi * 0.1 * t))
 y = out * np.clip(t / 1.5, 0, 1) * np.clip((T - t) / 1.5, 0, 1); y = y / np.abs(y).max() * 0.7
