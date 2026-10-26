@@ -252,7 +252,7 @@ import * as THREE from './vendor/three.module.min.js';
     g.setAttribute('aSeed', new THREE.BufferAttribute(seed, 1)); g.setAttribute('aBright', new THREE.BufferAttribute(bright, 1));
     mandalaMat = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending,
-      uniforms: { uForm: { value: 0 }, uTime: { value: 0 }, uPx: { value: TIER.dpr }, uGold: { value: C.gold }, uGoldLight: { value: C.goldLight }, uRose: { value: C.roseLight } },
+      uniforms: { uForm: { value: 0 }, uTime: { value: 0 }, uPx: { value: TIER.dpr }, uGold: { value: C.gold }, uGoldLight: { value: C.goldLight }, uRose: { value: C.roseLight }, uAlpha: { value: 1 } },
       vertexShader: `
         attribute vec3 aTarget; attribute float aSeed; attribute float aBright;
         uniform float uForm; uniform float uTime; uniform float uPx;
@@ -270,14 +270,14 @@ import * as THREE from './vendor/three.module.min.js';
         }`,
       fragmentShader: `
         precision highp float;
-        uniform float uTime; uniform vec3 uGold; uniform vec3 uGoldLight; uniform vec3 uRose;
+        uniform float uTime; uniform vec3 uGold; uniform vec3 uGoldLight; uniform vec3 uRose; uniform float uAlpha;
         varying float vA; varying float vSeed; varying float vBright;
         void main(){
           vec2 c = gl_PointCoord - 0.5; float d = length(c); if (d > 0.5) discard;
           float glow = pow(smoothstep(0.5, 0.0, d), 2.2);
           float tw = 0.75 + 0.25 * sin(uTime * (1.5 + vSeed * 2.0) + vSeed * 40.0);
           vec3 col = mix(uGold, uGoldLight, vBright); col = mix(col, uRose, step(0.93, vSeed) * 0.5);
-          float a = glow * (0.25 + vBright * 0.75) * tw * (0.15 + vA * 0.85) * 0.72;
+          float a = glow * (0.25 + vBright * 0.75) * tw * (0.15 + vA * 0.85) * 0.72 * uAlpha;
           gl_FragColor = vec4(col * (0.6 + vBright * 0.8), a);
         }`,
     });
@@ -345,7 +345,11 @@ import * as THREE from './vendor/three.module.min.js';
       mandala.position.set(0, baseY + lerp(0, narrow ? 7.5 : 6.2, recede) * (1 - ret) + lerp(0, narrow ? 0.4 : 1.0, ret), 0);
       mandala.rotation.z = t * 0.03;
       mandala.rotation.x = (1 - smooth(1.4, 2.8, p)) * -0.6;
-      if (glowMat) glowMat.opacity = smooth(0.55, 1, form) * (glowMax + 0.08 * Math.sin(t * 0.8)) * lerp(1, 0.75, recede) * lerp(1, 1.15, ret);
+      // while the guides and their quotes are being read, the gold mandala steps back
+      const reading = smooth(3.05, 3.4, p) * (1 - smooth(3.9, 4.4, p));
+      const quiet = lerp(1, narrow ? 0.3 : 0.5, reading);
+      mandalaMat.uniforms.uAlpha.value = quiet;
+      if (glowMat) glowMat.opacity = smooth(0.55, 1, form) * (glowMax + 0.08 * Math.sin(t * 0.8)) * lerp(1, 0.75, recede) * lerp(1, 1.15, ret) * quiet;
       camera.position.set(Math.sin(t * 0.08) * 0.3, Math.cos(t * 0.06) * 0.2, 16);
       camera.lookAt(0, mandala.position.y * 0.15, 0);
       renderer.render(scene, camera);
