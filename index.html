@@ -514,7 +514,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     if(!mcEmailValid(email)){if(formMsg)formMsg.textContent='Please enter a valid email.';return;}
     if(formMsg)formMsg.textContent='One moment…';
     mcSubscribe(email,function(result,msg){
-      if(result==='success'){if(formMsg)formMsg.textContent='Thank you. You are on the list, watch your inbox for early-bird access.';signupForm.reset();}
+      if(result==='success'){if(formMsg)formMsg.textContent='Almost there. Check your inbox and tap confirm, then you are on the list.';signupForm.reset();}
       else if(/already subscribed/i.test(msg)){if(formMsg)formMsg.textContent='You are already on our list. See you in the dome.';}
       else if(formMsg)formMsg.textContent=mcClean(msg);
     });
@@ -527,7 +527,8 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     if(!mcEmailValid(email)){if(btn)btn.textContent='Enter email';return;}
     if(btn)btn.textContent='…';
     mcSubscribe(email,function(result,msg){
-      if(result==='success'||/already subscribed/i.test(msg)){if(btn)btn.textContent='Joined ✓';footForm.reset();}
+      if(result==='success'){if(btn)btn.textContent='Check inbox ✓';footForm.reset();}
+      else if(/already subscribed/i.test(msg)){if(btn)btn.textContent='Already in ✓';footForm.reset();}
       else if(btn)btn.textContent='Try again';
     });
   });}
