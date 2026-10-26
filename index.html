@@ -228,6 +228,20 @@ section{position:relative;padding:var(--s7) clamp(1.3rem,5vw,3rem)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 @keyframes lineRise{to{transform:translateY(0)}}
 
+/* ---------- sky journey (WebGL layer, progressive enhancement) ---------- */
+#journey{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0;transition:opacity 1.6s ease}
+#journey.on{opacity:1}
+.hero.journey{min-height:230svh;display:block;padding:0;justify-content:flex-start;overflow:visible}
+.hero.journey .hero-mandala{display:none}
+.hero.journey .hero-inner{position:sticky;top:0;height:100svh;max-width:none;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:7rem 1.3rem 5rem;margin:0 auto}
+.hero.journey .hero-inner>*{max-width:780px}
+.hero.journey .hero-inner .sub{max-width:560px}
+.hero.journey .scroll-hint{position:fixed;bottom:1.8rem;transition:opacity .6s}
+.hero.journey.scrolled .scroll-hint{opacity:0!important;visibility:hidden}
+.hero.journey .kicker,.hero.journey h1,.hero.journey .sub,.hero.journey .meta{text-shadow:0 2px 24px rgba(10,5,16,.75),0 0 60px rgba(10,5,16,.5)}
+.hero.journey .hero-veil{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60% 50% at 50% 55%,rgba(10,5,16,.42),transparent 70%)}
+@media(max-width:640px){.hero.journey .hero-veil{background:radial-gradient(80% 42% at 50% 62%,rgba(10,5,16,.66),transparent 75%)}}
+
 /* ============================================================ MARQUEE */
 .marquee{border-top:1px solid rgba(217,178,94,.14);border-bottom:1px solid rgba(217,178,94,.14);padding:1.4rem 0;overflow:hidden;white-space:nowrap}
 .marquee-track{display:inline-flex;gap:3rem;animation:marq 32s linear infinite;will-change:transform}
@@ -441,6 +455,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
 <div class="starfield-css" aria-hidden="true"></div>
 <div class="bg-mesh"></div>
 <canvas id="stars"></canvas>
+<canvas id="journey" aria-hidden="true"></canvas>
 <div class="grain"></div>
 <div id="cursor-glow"></div>
 
@@ -523,6 +538,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
   </div>
 
   <div class="hero-inner">
+    <div class="hero-veil" aria-hidden="true"></div>
     <div class="kicker">A 360° Dome Sound Journey · Edmonton</div>
     <h1>
       <span class="line"><span>Inside the</span></span>
@@ -728,6 +744,9 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
   </div>
 </footer>
 
+<!-- ===================== SKY JOURNEY (progressive enhancement) ===================== -->
+<script type="module" src="journey.js"></script>
+
 <!-- ===================== STICKY CTA ===================== -->
 <div class="sticky-cta" id="stickyCta">
   <div class="s-info"><b>From $111 · Jan 17</b>Inside the Mandala</div>
@@ -777,6 +796,7 @@ footer{border-top:1px solid rgba(217,178,94,.12);padding:var(--s6) clamp(1.3rem,
     last=y;
     sticky.classList.toggle('show',y>700);
     if(!reduce && heroM && y<innerHeight){heroM.style.transform='translate(-50%,calc(-50% + '+(y*0.18)+'px))';}
+    var heroEl=document.getElementById('top'); if(heroEl) heroEl.classList.toggle('scrolled',y>80);
     ticking=false;
   }
   addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(onScroll);ticking=true;}},{passive:true});
