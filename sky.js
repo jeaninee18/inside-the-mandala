@@ -300,7 +300,7 @@ import * as THREE from './vendor/three.module.min.js';
           float glow = pow(smoothstep(0.5, 0.0, d), 2.2);
           float tw = 0.75 + 0.25 * sin(uTime * (1.5 + vSeed * 2.0) + vSeed * 40.0);
           vec3 col = mix(uGold, uGoldLight, vBright); col = mix(col, uRose, step(0.93, vSeed) * 0.5);
-          float a = glow * (0.25 + vBright * 0.75) * tw * (0.15 + vA * 0.85);
+          float a = glow * (0.25 + vBright * 0.75) * tw * (0.15 + vA * 0.85) * 0.72;
           gl_FragColor = vec4(col * (0.6 + vBright * 0.8), a);
         }`,
     });
@@ -334,7 +334,7 @@ import * as THREE from './vendor/three.module.min.js';
     narrow = camera.aspect < 0.8;
     const dist = 16, vh = 2 * dist * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)), vw = vh * camera.aspect;
     mandalaScale = Math.min(1.15, (Math.min(vw, vh) * (narrow ? 0.98 : 0.88)) / MANDALA_SIZE);
-    glowMax = narrow ? 0.66 : 0.82;
+    glowMax = narrow ? 0.42 : 0.58;
   }
   function resize() {
     renderer.setSize(innerWidth, innerHeight, false);
@@ -389,7 +389,7 @@ import * as THREE from './vendor/three.module.min.js';
       const recede = smooth(4.0, 4.6, p), ret = smooth(5.0, 5.6, p);
       const s = mandalaScale * lerp(lerp(1, 0.34, recede), narrow ? 1.25 : 1.3, ret);
       mandala.scale.setScalar(s);
-      mandala.position.set(0, MANDALA.y + (narrow ? 3.2 : 0) + lerp(0, narrow ? 9 : 7, recede) * (1 - ret) + lerp(0, narrow ? 0.5 : 1.5, ret), lerp(MANDALA.z, MANDALA.z + 2, ret));
+      mandala.position.set(0, MANDALA.y + (narrow ? 4.8 : 1.2) + lerp(0, narrow ? 8 : 6.5, recede) * (1 - ret) + lerp(0, narrow ? 0.4 : 1.2, ret), lerp(MANDALA.z, MANDALA.z + 2, ret));
       mandala.rotation.z = t * 0.03;
       mandala.rotation.x = (1 - smooth(1.5, 2.6, p)) * -0.6;
       if (glowMat) glowMat.opacity = smooth(0.55, 1, form) * (glowMax + 0.08 * Math.sin(t * 0.8)) * lerp(1, 0.75, recede) * lerp(1, 1.15, ret);
