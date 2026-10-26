@@ -19,16 +19,21 @@ import * as THREE from './vendor/three.module.min.js';
   const chapters = Array.from(document.querySelectorAll('[data-chapter]'));
   if (!canvas || !chapters.length) return;
 
+  // Reduce Motion never switches the show off (the show is the point); it slows it right down.
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) return;
-  const force = /[?&]sky=force/.test(location.search); // QA override only
+  const debug = /[?&]sky=debug/.test(location.search);
   const coarse = matchMedia('(pointer: coarse)').matches;
   const probe = document.createElement('canvas');
-  const gl = probe.getContext('webgl2', { failIfMajorPerformanceCaveat: !force });
-  if (!gl) return;
+  // a GPU that flags a performance caveat still gets the show, on the light tier
+  let caveat = false;
+  let gl = probe.getContext('webgl2', { failIfMajorPerformanceCaveat: true });
+  if (!gl) { caveat = true; gl = probe.getContext('webgl2'); }
+  if (!gl) { if (debug) document.title = 'sky: no WebGL2'; return; }
   const dbg = gl.getExtension('WEBGL_debug_renderer_info');
   const gpu = dbg ? String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)) : '';
-  const lite = coarse || /SwiftShader|llvmpipe|Mali-4|Adreno \(TM\) 3/i.test(gpu);
+  const lite = coarse || caveat || reduce || /SwiftShader|llvmpipe|Mali-4|Adreno \(TM\) 3/i.test(gpu);
+  const speed = reduce ? 0.35 : 1;
+  if (debug) document.title = 'sky: live ' + (lite ? 'lite' : 'full') + (reduce ? ' reduced' : '') + ' ' + gpu;
   const TIER = { dpr: Math.min(devicePixelRatio || 1, lite ? 1.25 : 1.75), particles: lite ? 4500 : 9000, quality: lite ? 0 : 1 };
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: 'high-performance' });
@@ -319,7 +324,7 @@ import * as THREE from './vendor/three.module.min.js';
   function frame(now) {
     requestAnimationFrame(frame);
     if (hidden) return;
-    const dt = Math.min(0.05, (now - last) / 1000); last = now; t += dt;
+    const dt = Math.min(0.05, (now - last) / 1000); last = now; t += dt * speed;
     const p = P;
 
     domeMat.uniforms.uTime.value = t;
