@@ -150,9 +150,14 @@ html.scrolled .scroll-cue{opacity:0}
 @media(max-width:640px){.points{grid-template-columns:1fr;gap:.7rem;margin-top:1.8rem}.point{padding:1rem 1rem 1rem 2rem}.point p{font-size:.88rem}.point h3{font-size:1.2rem}}
 
 /* ---------- chapter 4: guides ---------- */
-#guides .pin{justify-content:flex-start;padding-top:7rem}
+#guides{min-height:230svh}
+#guides .pin{justify-content:flex-start;padding-top:6rem}
 #guides h2{font-size:clamp(2.2rem,5.5vw,3.8rem)}
 #guides .lead{max-width:600px;margin:0 auto;font-size:1.02rem}
+.guides-photo{width:min(100%,860px);margin:1.8rem auto 0;border-radius:20px;overflow:hidden;border:1px solid rgba(236,212,154,.28);box-shadow:0 30px 70px -30px rgba(0,0,0,.9),0 0 0 1px rgba(11,13,20,.6)}
+.guides-photo img{width:100%;height:auto;aspect-ratio:1600/1063;object-fit:cover}
+.guides-photo figcaption{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.7rem 1rem;background:rgba(11,13,20,.75)}
+@media(max-width:640px){.guides-photo{margin-top:1.4rem;border-radius:14px}}
 .hosts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;width:min(100%,860px);margin:2.2rem auto 0;text-align:left}
 .host{padding:1.5rem 1.5rem;border-radius:18px;border:1px solid rgba(236,212,154,.14);background:rgba(11,13,20,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .host h3{font-size:1.7rem;color:var(--gold-light)}
@@ -345,6 +350,10 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     <div class="eyebrow rise">Your Guides</div>
     <h2 class="rise">Jeanine &amp; Matt</h2>
     <p class="lead rise">This is the first time The Mindful Mandala Wellness has brought a sound bath into the Zeidler Dome at TELUS World of Science - Edmonton. Jeanine and Matt have built the hour together with one aim, that the room feels safe enough for you to fully let go.</p>
+    <figure class="guides-photo rise">
+      <img src="jeanine-and-matt-dome.webp" srcset="jeanine-and-matt-dome-900.webp 900w, jeanine-and-matt-dome.webp 1600w" sizes="(max-width: 900px) 100vw, 860px" alt="Jeanine and Matt standing in the Zeidler Dome with the gong and crystal bowls, a glowing mandala across the dome above them" loading="lazy" decoding="async" width="1600" height="1063" />
+      <figcaption>Jeanine and Matt in the Zeidler Dome</figcaption>
+    </figure>
     <div class="hosts rise">
       <div class="host">
         <h3>Jeanine</h3>
