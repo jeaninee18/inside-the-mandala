@@ -34,7 +34,7 @@ import * as THREE from './vendor/three.module.min.js';
   const lite = coarse || caveat || reduce || /SwiftShader|llvmpipe|Mali-4|Adreno \(TM\) 3/i.test(gpu);
   const speed = reduce ? 0.35 : 1;
   if (debug) document.title = 'sky: live ' + (lite ? 'lite' : 'full') + (reduce ? ' reduced' : '') + ' ' + gpu;
-  const TIER = { dpr: Math.min(devicePixelRatio || 1, lite ? 1.25 : 1.75), particles: lite ? 4500 : 9000, quality: lite ? 0 : 1 };
+  const TIER = { dpr: Math.min(devicePixelRatio || 1, 2), particles: lite ? 5000 : 9000, quality: lite ? 0 : 1 };
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: 'high-performance' });
   renderer.setPixelRatio(TIER.dpr);
@@ -225,7 +225,7 @@ import * as THREE from './vendor/three.module.min.js';
   camera.position.set(0, 0, 16);
   const MANDALA_SIZE = 11;
   let mandala = null, mandalaMat = null, glowMat = null, glowMax = 0.6;
-  const glowTex = new THREE.TextureLoader().load('mandala-glow.webp', (t) => { t.colorSpace = THREE.SRGBColorSpace; });
+  const glowTex = new THREE.TextureLoader().load('mandala-glow.webp', (t) => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy()); t.minFilter = THREE.LinearMipmapLinearFilter; t.generateMipmaps = true; });
   function buildMandala(img) {
     const S = 512, cv = document.createElement('canvas'); cv.width = cv.height = S;
     const ctx = cv.getContext('2d'); ctx.drawImage(img, 0, 0, S, S);
@@ -264,7 +264,7 @@ import * as THREE from './vendor/three.module.min.js';
           float k = (1.0 - e) * 1.0 + 0.06;
           p += vec3(sin(uTime*0.7 + aSeed*31.0), cos(uTime*0.6 + aSeed*17.0), sin(uTime*0.5 + aSeed*7.0)) * k;
           vec4 mv = modelViewMatrix * vec4(p, 1.0);
-          float size = (1.6 + aBright * 3.0) * uPx;
+          float size = (1.9 + aBright * 3.2) * uPx;
           gl_PointSize = size * (26.0 / -mv.z);
           vA = e; vSeed = aSeed; vBright = aBright; gl_Position = projectionMatrix * mv;
         }`,
@@ -309,7 +309,7 @@ import * as THREE from './vendor/three.module.min.js';
     narrow = camera.aspect < 0.8;
     const dist = 16, vh = 2 * dist * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)), vw = vh * camera.aspect;
     mandalaScale = Math.min(1.15, (Math.min(vw, vh) * (narrow ? 0.98 : 0.88)) / MANDALA_SIZE);
-    glowMax = narrow ? 0.42 : 0.58;
+    glowMax = narrow ? 0.62 : 0.72;
   }
   function resize() {
     renderer.setSize(innerWidth, innerHeight, false);
