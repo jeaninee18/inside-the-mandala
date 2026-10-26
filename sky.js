@@ -181,11 +181,12 @@ import * as THREE from './vendor/three.module.min.js';
         float ang = 0.03 * sin(t * 0.07);
         d = d * mat2(cos(ang), -sin(ang), sin(ang), cos(ang));
 
-        float wMand = (1.0 - sm(0.9, 1.7, p)) + sm(4.6, 5.4, p) * 0.4;
-        float wWorm = sm(0.8, 1.5, p) * (1.0 - sm(1.9, 2.6, p));
-        float wMilk = sm(2.0, 2.8, p) * (1.0 - sm(3.1, 3.7, p)) + sm(3.9, 4.6, p) * (1.0 - sm(5.1, 5.7, p)) * 0.9;
-        float wFrac = sm(3.0, 3.6, p) * (1.0 - sm(3.95, 4.5, p));
-        float wStars = sm(1.8, 2.6, p);
+        // every scene melts into the next: wide, overlapping fades (about a whole chapter each)
+        float wMand = (1.0 - sm(0.7, 1.9, p)) + sm(4.3, 5.5, p) * 0.4;
+        float wWorm = sm(0.6, 1.6, p) * (1.0 - sm(1.7, 2.9, p));
+        float wMilk = sm(1.7, 2.9, p) * (1.0 - sm(3.0, 3.9, p)) + sm(3.6, 4.7, p) * (1.0 - sm(4.9, 5.8, p)) * 0.9;
+        float wFrac = sm(2.8, 3.8, p) * (1.0 - sm(3.8, 4.7, p));
+        float wStars = sm(1.5, 2.8, p);
 
         vec3 col = NIGHT;
         if (wMand > 0.002){
@@ -289,7 +290,7 @@ import * as THREE from './vendor/three.module.min.js';
   const img = new Image(); img.onload = () => buildMandala(img); img.src = 'mandala-particles.webp';
 
   /* ---------- scroll -> chapter progress (0..6) ---------- */
-  let P = 0;
+  let P = 0, targetP = 0;
   function readScroll() {
     const vh = innerHeight; let p = 0;
     for (let i = 0; i < chapters.length; i++) {
@@ -299,7 +300,7 @@ import * as THREE from './vendor/three.module.min.js';
       if (r.top > 0 && i === 0) { p = 0; break; }
       if (r.top <= 0) p = i + local; else break;
     }
-    P = p;
+    targetP = p;
   }
   addEventListener('scroll', readScroll, { passive: true });
 
@@ -325,6 +326,8 @@ import * as THREE from './vendor/three.module.min.js';
     requestAnimationFrame(frame);
     if (hidden) return;
     const dt = Math.min(0.05, (now - last) / 1000); last = now; t += dt * speed;
+    // ease toward the scroll position so nothing snaps
+    P += (targetP - P) * Math.min(1, dt * 2.2);
     const p = P;
 
     domeMat.uniforms.uTime.value = t;
@@ -333,15 +336,15 @@ import * as THREE from './vendor/three.module.min.js';
     renderer.render(domeScene, domeCam);
 
     if (mandala) {
-      const form = smooth(2.15, 2.85, p) * (1 - smooth(5.75, 6.0, p));
+      const form = smooth(2.0, 3.0, p) * (1 - smooth(5.75, 6.0, p));
       mandalaMat.uniforms.uForm.value = form; mandalaMat.uniforms.uTime.value = t;
-      const recede = smooth(4.0, 4.6, p), ret = smooth(5.0, 5.6, p);
+      const recede = smooth(3.8, 4.7, p), ret = smooth(4.9, 5.7, p);
       const s = mandalaScale * lerp(lerp(1, 0.34, recede), narrow ? 1.25 : 1.3, ret);
       mandala.scale.setScalar(s);
       const baseY = narrow ? 3.6 : 0.6;
       mandala.position.set(0, baseY + lerp(0, narrow ? 7.5 : 6.2, recede) * (1 - ret) + lerp(0, narrow ? 0.4 : 1.0, ret), 0);
       mandala.rotation.z = t * 0.03;
-      mandala.rotation.x = (1 - smooth(1.5, 2.6, p)) * -0.6;
+      mandala.rotation.x = (1 - smooth(1.4, 2.8, p)) * -0.6;
       if (glowMat) glowMat.opacity = smooth(0.55, 1, form) * (glowMax + 0.08 * Math.sin(t * 0.8)) * lerp(1, 0.75, recede) * lerp(1, 1.15, ret);
       camera.position.set(Math.sin(t * 0.08) * 0.3, Math.cos(t * 0.06) * 0.2, 16);
       camera.lookAt(0, mandala.position.y * 0.15, 0);
