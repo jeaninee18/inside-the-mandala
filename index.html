@@ -502,11 +502,20 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
   function mcSubscribe(email,onResult){
     var cb='mcjsonp_'+Date.now(), s=document.createElement('script');
     window[cb]=function(data){
+      if(data&&data.result==='redirect'){
+        /* Mailchimp wants a human check: hand off to its captcha page with the email carried over */
+        var q=data.params||{};
+        var url=MC_URL.split('/subscribe/post-json')[0]+'/subscribe/confirm-captcha?u='+encodeURIComponent(q.u||'7d0bab3f2c497053290270103')+'&id='+encodeURIComponent(q.id||'2203fd6a70')+'&f_id='+encodeURIComponent(q.f_id||'004467e9f0')+'&EMAIL='+encodeURIComponent(email);
+        onResult('redirect','Opening a quick confirmation…');
+        setTimeout(function(){window.location.href=url;},350);
+        return;
+      }
       onResult((data&&data.result)||'error',(data&&data.msg)||'Something went wrong, please try again.');
       try{delete window[cb];}catch(_){window[cb]=undefined;}
       if(s.parentNode)s.parentNode.removeChild(s);
     };
     s.src=MC_URL+'&EMAIL='+encodeURIComponent(email)+'&c='+cb;
+    s.onerror=function(){window[cb]({result:'redirect',params:{}});};
     document.body.appendChild(s);
   }
   var signupForm=document.getElementById('signupForm'),formMsg=document.getElementById('formMsg');
@@ -517,6 +526,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     if(formMsg)formMsg.textContent='One moment…';
     mcSubscribe(email,function(result,msg){
       if(result==='success'){if(formMsg)formMsg.textContent='Almost there. Check your inbox and tap confirm, then you are on the list.';signupForm.reset();}
+      else if(result==='redirect'){if(formMsg)formMsg.textContent=msg;}
       else if(/already subscribed/i.test(msg)){if(formMsg)formMsg.textContent='You are already on our list. See you in the dome.';}
       else if(formMsg)formMsg.textContent=mcClean(msg);
     });
@@ -530,6 +540,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     if(btn)btn.textContent='…';
     mcSubscribe(email,function(result,msg){
       if(result==='success'){if(btn)btn.textContent='Check inbox ✓';footForm.reset();}
+      else if(result==='redirect'){if(btn)btn.textContent='One sec…';}
       else if(/already subscribed/i.test(msg)){if(btn)btn.textContent='Already in ✓';footForm.reset();}
       else if(btn)btn.textContent='Try again';
     });
