@@ -210,7 +210,7 @@ import * as THREE from './vendor/three.module.min.js';
     new THREE.Vector3(-3, 21, -9),    // drifting up and to the left
     new THREE.Vector3(3, 24, -6),      // sweeping right, higher
     new THREE.Vector3(-1, 26, -2),    // flat on your back, straight up
-    new THREE.Vector3(0, 20, -10),    // the finale, the sunflower
+    new THREE.Vector3(0, 20, -10),    // the finale, the Flower of Life
   ], false, 'catmullrom', 0.5);
   const camTarget = new THREE.Vector3(), lookTarget = new THREE.Vector3(), lookNow = new THREE.Vector3();
   seatPath.getPointAt(0, camera.position); gazePath.getPointAt(0, lookNow); camera.lookAt(lookNow);

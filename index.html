@@ -31,7 +31,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<link rel="preload" as="image" href="mandala-glow.webp" />
+<link rel="preload" as="image" href="dome/poster-d.webp" media="(min-aspect-ratio:4/5)" fetchpriority="high" />
+<link rel="preload" as="image" href="dome/poster-m.webp" media="(max-aspect-ratio:4/5)" fetchpriority="high" />
 
 <style>
 /* ============================================================
@@ -67,10 +68,11 @@ img{max-width:100%;display:block}
     radial-gradient(50% 40% at 85% 80%, rgba(154,132,104,.18), transparent 70%),
     linear-gradient(180deg, var(--night-3) 0%, var(--night-2) 45%, var(--night) 100%)}
 /* the still mandala for anyone without the live sky */
-.poster::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(11,13,20,.15),rgba(11,13,20,.55)),url(dome/seat02.webp) center 35%/cover no-repeat;opacity:.9}
-html.sky-on .poster::after{opacity:0;transition:opacity 1.6s ease}
-#sky{position:fixed;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none;opacity:0;transition:opacity 1.8s ease}
+/* the poster is a still of the dome's exact opening frame, so the live sky takes over without a visible change */
+.poster::after{content:"";position:absolute;inset:0;background:url(dome/poster-d.webp) center/cover no-repeat}
+@media (max-aspect-ratio:4/5){.poster::after{background-image:url(dome/poster-m.webp)}}
+
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none;opacity:0;transition:opacity .6s ease}
 #sky.on{opacity:1}
 .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
