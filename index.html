@@ -124,10 +124,21 @@ img{max-width:100%;display:block}
 #arrival .meta{margin-top:2rem;display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--pearl);font-weight:500}
 #arrival .meta b{color:var(--gold-light);font-weight:400}
 #arrival .meta i{color:var(--gold);font-style:normal}
+@media(max-width:640px){
+  #arrival .kicker{font-size:.9rem;letter-spacing:.24em;line-height:1.6;margin-bottom:1.2rem}
+  #arrival h1{font-size:clamp(3.4rem,14vw,4.6rem)}
+  #arrival h1 em{font-size:.5em;letter-spacing:.03em;margin-top:.7rem}
+  #arrival .meta{font-size:.9rem;letter-spacing:.1em;gap:.5rem 1rem;line-height:1.5}
+}
 .cta-row{margin-top:2.4rem;display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center}
-.scroll-cue{position:absolute;bottom:calc(1.6rem + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:.6rem;transition:opacity .6s}
-.scroll-cue .dash{width:1px;height:34px;background:linear-gradient(var(--gold),transparent);animation:dash 2.4s ease-in-out infinite}
-@keyframes dash{0%,100%{transform:scaleY(.5);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+/* scroll cue: fixed to the bottom of the screen until the visitor starts scrolling */
+.scroll-cue,.ch .pin>.scroll-cue{position:fixed;z-index:80;bottom:calc(1.4rem + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.55rem;pointer-events:none;transition:opacity .6s ease}
+.scroll-cue span:first-child{font-size:.78rem;font-weight:500;letter-spacing:.38em;padding-left:.38em;text-transform:uppercase;color:var(--gold-light);
+  text-shadow:0 1px 2px rgba(8,9,14,1),0 0 14px rgba(8,9,14,.9)}
+.scroll-cue .chev{width:14px;height:14px;border-right:1.5px solid var(--gold-light);border-bottom:1.5px solid var(--gold-light);transform:rotate(45deg);
+  filter:drop-shadow(0 0 6px rgba(8,9,14,.9));animation:cue 2s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:translateY(-3px) rotate(45deg);opacity:.5}50%{transform:translateY(5px) rotate(45deg);opacity:1}}
 html.scrolled .scroll-cue{opacity:0}
 
 /* ---------- buttons ---------- */
@@ -261,7 +272,7 @@ footer{position:relative;border-top:1px solid rgba(217,178,94,.14);background:li
 
 /* ---------- reduced motion / no sky: a quiet version of the same design ---------- */
 @media(prefers-reduced-motion:reduce){
-  .scroll-cue .dash{animation:none}
+  .scroll-cue .chev{animation:none}
   .rise{opacity:1!important;transform:none!important}
 }
 html:not(.sky-live) .ch{min-height:0}
@@ -325,7 +336,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
       <a href="#reserve" class="btn btn-gold">Reserve Your Spot</a>
       <a href="#invitation" class="btn btn-ghost">Begin the Journey</a>
     </div>
-    <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><span class="dash"></span></div>
+    <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><span class="chev"></span></div>
   </div>
 </section>
 
