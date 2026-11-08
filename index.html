@@ -91,8 +91,8 @@ html.sky-on .poster::after{opacity:0;transition:opacity 1.6s ease}
 @media(max-width:768px){.nav-links a:not(.nav-cta){display:none}}
 
 /* ---------- chapters ---------- */
-.ch{position:relative;min-height:170svh}
-.ch .pin{position:sticky;top:0;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem var(--gutter) 5rem}
+.ch{position:relative}
+.ch .pin{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem var(--gutter) 5rem}
 .ch .pin>*{position:relative}
 /* the veil: words always win over the sky */
 .veil{position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(70% 72% at 50% 48%,rgba(11,13,20,.9),rgba(11,13,20,.55) 58%,transparent 84%)}
@@ -171,7 +171,7 @@ html.scrolled .scroll-cue{opacity:0}
 @media(max-width:760px){.hosts,.quotes{grid-template-columns:1fr}.host{padding:1.2rem}.host p{font-size:.88rem}.quote{font-size:1.02rem}}
 
 /* ---------- chapter 5: details ---------- */
-#details .pin{justify-content:flex-start;padding-top:38svh}
+#details .pin{justify-content:flex-start;padding-top:7rem}
 #details h2{font-size:clamp(2.2rem,5.5vw,3.6rem)}
 .det-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem;width:min(100%,900px);margin:2.2rem auto 0}
 .det h3{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-family:var(--sans);font-weight:400;margin-bottom:.5rem}

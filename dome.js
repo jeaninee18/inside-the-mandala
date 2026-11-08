@@ -34,7 +34,7 @@ import * as THREE from './vendor/three.module.min.js';
   const weak = /SwiftShader|llvmpipe|Mali-4|Adreno \(TM\) 3/i.test(gpu);
   const lite = coarse || weak;
   const TIER = {
-    dpr: Math.min(devicePixelRatio || 1, weak ? 1.25 : 2),
+    dpr: Math.min(devicePixelRatio || 1, weak ? 1 : coarse ? 1.5 : 2),
     tex: weak ? '-m' : '',
     sparks: lite ? 450 : 1400,
   };
@@ -78,6 +78,7 @@ import * as THREE from './vendor/three.module.min.js';
       loader.load('dome/sky' + i + TIER.tex + '.webp', (t) => {
         t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); t.generateMipmaps = true;
         t.minFilter = THREE.LinearMipmapLinearFilter;
+        renderer.initTexture(t);   // upload now, so the first melt into it never stutters
         skies[i] = t; averageColour(t.image, i); res(t);
       }, undefined, () => res(null));
     });
@@ -134,7 +135,7 @@ import * as THREE from './vendor/three.module.min.js';
       }`,
   });
   const dome = new THREE.Mesh(new THREE.SphereGeometry(R, lite ? 48 : 96, lite ? 32 : 64), domeMat);
-  dome.rotation.x = -0.45;   // the Zeidler is a tilted dome: the sky comes down in front of the seats
+  dome.rotation.x = -0.22;   // the Zeidler is a tilted dome: the sky comes down in front of the seats
   scene.add(dome);
 
   const rand = (() => { let a = 2027; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; })();
@@ -187,11 +188,11 @@ import * as THREE from './vendor/three.module.min.js';
     new THREE.Vector3(0, 0.9, 5.75), new THREE.Vector3(0, 1.15, 5.6),
   ], false, 'catmullrom', 0.5);
   const gazePath = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0, 8.5, -18),   // arrival: the room in front, the sky opening above
-    new THREE.Vector3(-3, 8, -16),   // looking up and to the left
-    new THREE.Vector3(4, 15, -12),     // sweeping right, higher
-    new THREE.Vector3(-1, 22, -9),    // flat on your back, straight up
-    new THREE.Vector3(0, 7, -18),    // the finale, the sunflower and the room together again
+    new THREE.Vector3(0, 17, -13),    // arrival: reclined, the heart of the sky above you
+    new THREE.Vector3(-3, 21, -9),    // drifting up and to the left
+    new THREE.Vector3(3, 24, -6),      // sweeping right, higher
+    new THREE.Vector3(-1, 26, -2),    // flat on your back, straight up
+    new THREE.Vector3(0, 20, -10),    // the finale, the sunflower
   ], false, 'catmullrom', 0.5);
   const camTarget = new THREE.Vector3(), lookTarget = new THREE.Vector3(), lookNow = new THREE.Vector3();
   seatPath.getPointAt(0, camera.position); gazePath.getPointAt(0, lookNow); camera.lookAt(lookNow);
@@ -254,7 +255,7 @@ import * as THREE from './vendor/three.module.min.js';
     look.x += (look.tx - look.x) * 0.04; look.y += (look.ty - look.y) * 0.04;
     lookTarget.x += look.x * 3.0; lookTarget.y -= look.y * 2.0;
     lookTarget.x += Math.sin(t * 0.07) * 0.8; lookTarget.y += Math.sin(t * 0.05) * 0.5; // breathing gaze
-    const alpha = capture ? 1 : 1 - Math.pow(0.12, dt);
+    const alpha = capture ? 1 : 1 - Math.pow(0.02, dt);
     camera.position.lerp(camTarget, alpha);
     lookNow.lerp(lookTarget, alpha);
     camera.lookAt(lookNow);
