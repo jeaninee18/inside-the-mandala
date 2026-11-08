@@ -35,7 +35,7 @@ import * as THREE from './vendor/three.module.min.js';
   const lite = coarse || weak;
   const TIER = {
     dpr: Math.min(devicePixelRatio || 1, weak ? 1 : coarse ? 1.5 : 2),
-    tex: weak ? '-m' : '',
+    tex: '',   // decided after the renderer exists (phones and small GPUs get the 2048 set)
     sparks: lite ? 450 : 1400,
   };
   if (debug) document.title = 'dome: ' + (lite ? 'lite' : 'full') + ' ' + gpu;
@@ -44,6 +44,19 @@ import * as THREE from './vendor/three.module.min.js';
   renderer.setPixelRatio(TIER.dpr);
   renderer.setClearColor(0x05060a, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+  if (lite || renderer.capabilities.maxTextureSize < 4096) TIER.tex = '-m';
+
+  // only the skies near where you are live on the GPU; the rest are released (they are 3072px each)
+  const onGpu = new Set();
+  function keepWindow(lo, hi) {
+    for (let i = 0; i < N_SKY; i++) {
+      const t = skies[i]; if (!t) continue;
+      const want = i >= lo - 1 && i <= hi + 1;
+      if (want && !onGpu.has(i)) { renderer.initTexture(t); onGpu.add(i); break; }   // one upload per frame
+      if (!want && onGpu.has(i)) { t.dispose(); onGpu.delete(i); }
+    }
+  }
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(72, 1, 0.05, 200);
@@ -78,7 +91,6 @@ import * as THREE from './vendor/three.module.min.js';
       loader.load('dome/sky' + i + TIER.tex + '.webp', (t) => {
         t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); t.generateMipmaps = true;
         t.minFilter = THREE.LinearMipmapLinearFilter;
-        renderer.initTexture(t);   // upload now, so the first melt into it never stutters
         skies[i] = t; averageColour(t.image, i); res(t);
       }, undefined, () => res(null));
     });
@@ -89,7 +101,7 @@ import * as THREE from './vendor/three.module.min.js';
     side: THREE.BackSide, depthWrite: false,
     uniforms: {
       uA: { value: blank }, uB: { value: blank }, uMix: { value: 0 },
-      uTime: { value: 0 }, uSpin: { value: 0 }, uGlow: { value: 0.22 }, uSharp: { value: 1.1 },
+      uTime: { value: 0 }, uSpin: { value: 0 }, uGlow: { value: 0.22 }, uSharp: { value: 0.45 },
       uTint: { value: new THREE.Color() },
     },
     vertexShader: /* glsl */`
@@ -245,6 +257,7 @@ import * as THREE from './vendor/three.module.min.js';
     const ia = Math.min(N_SKY - 1, Math.floor(f)), ib = Math.min(N_SKY - 1, ia + 1);
     const frac = f - ia;
     const mix = THREE.MathUtils.smoothstep(frac, 0.28, 0.78);
+    keepWindow(ia, ib);
     domeMat.uniforms.uA.value = skies[ia] || skies[0] || blank;
     domeMat.uniforms.uB.value = skies[ib] || domeMat.uniforms.uA.value;
     domeMat.uniforms.uMix.value = skies[ib] ? mix : 0;
