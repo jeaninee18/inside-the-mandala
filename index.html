@@ -67,8 +67,8 @@ img{max-width:100%;display:block}
     radial-gradient(50% 40% at 85% 80%, rgba(154,132,104,.18), transparent 70%),
     linear-gradient(180deg, var(--night-3) 0%, var(--night-2) 45%, var(--night) 100%)}
 /* the still mandala for anyone without the live sky */
-.poster::after{content:"";position:absolute;left:50%;top:38%;width:min(90vw,620px);aspect-ratio:1;transform:translate(-50%,-50%);
-  background:url(mandala-glow.webp) center/contain no-repeat;opacity:.55}
+.poster::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(11,13,20,.15),rgba(11,13,20,.55)),url(dome/seat02.webp) center 35%/cover no-repeat;opacity:.9}
 html.sky-on .poster::after{opacity:0;transition:opacity 1.6s ease}
 #sky{position:fixed;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none;opacity:0;transition:opacity 1.8s ease}
 #sky.on{opacity:1}
@@ -341,7 +341,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
       <div class="point"><h3>Mandala Sky</h3><p>Mandalas and sacred geometry turn slowly across the full dome overhead. Watching them gives the mind something gentle to rest on.</p></div>
       <div class="point"><h3>Live Sound</h3><p>Crystal bowls, gongs, and voice, played live in the room and carried through the dome's surround system. Low tones you feel in your chest as much as hear.</p></div>
       <div class="point"><h3>Nervous System Reset</h3><p>The hour is paced to move you out of a stress response and into the deep rest where the body does its repair work.</p></div>
-      <div class="point"><h3>Reclined &amp; Held</h3><p>The dome seats recline, so you can settle back and stay there the whole hour. No posture to hold, no instructions to follow.</p></div>
+      <div class="point"><h3>Reclined &amp; Held</h3><p>The dome seats recline, so you can settle back and stay there the whole hour. No posture to hold, no instructions to follow. A small number of beanbag chairs are also available, first come, first served.</p></div>
     </div>
   </div>
 </section>
@@ -466,7 +466,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
   <a href="https://www.eventbrite.ca/e/inside-the-mandala-a-360-dome-sound-journey-tickets-1991310060997" class="btn btn-gold" rel="noopener">Reserve</a>
 </div>
 
-<script type="module" src="sky.js"></script>
+<script type="module" src="dome.js"></script>
 <script>
 (function(){
   /* ---- nav, scroll cue, sticky cta ---- */
