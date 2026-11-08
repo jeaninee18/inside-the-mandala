@@ -13,9 +13,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Inside the Mandala: Sound &amp; Light Dome Journey | Edmonton</title>
-<meta name="description" content="A 360° sound & light dome journey at TELUS World of Science, Edmonton. One hour of live sound and mandala visuals for deep nervous-system rest. Jan 17, 2027." />
+<meta name="description" content="A 360° sound & light dome journey at TELUS World of Science, Edmonton. One hour of live sound under a living sky of flowers, galaxies and sacred geometry. Jan 17, 2027." />
 <meta property="og:title" content="Inside the Mandala: Sound & Light Dome Journey" />
-<meta property="og:description" content="A live sound bath beneath a 360° sky of mandalas. Zeidler Dome, TELUS World of Science - Edmonton · January 17, 2027." />
+<meta property="og:description" content="A live sound bath beneath a 360° living sky of flowers, galaxies and sacred geometry. Zeidler Dome, TELUS World of Science - Edmonton · January 17, 2027." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.insidethemandala.com/" />
 <meta property="og:image" content="https://www.insidethemandala.com/cover-eventbrite-2160x1080.png" />
@@ -25,7 +25,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Inside the Mandala: Sound & Light Dome Journey" />
-<meta name="twitter:description" content="A live sound bath beneath a 360° sky of mandalas. Zeidler Dome, TELUS World of Science, Edmonton · Jan 17, 2027." />
+<meta name="twitter:description" content="A live sound bath beneath a 360° living sky of flowers, galaxies and sacred geometry. Zeidler Dome, TELUS World of Science, Edmonton · Jan 17, 2027." />
 <meta name="twitter:image" content="https://www.insidethemandala.com/cover-eventbrite-2160x1080.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -81,14 +81,19 @@ img{max-width:100%;display:block}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
   padding:1.2rem var(--gutter);padding-top:calc(1.2rem + env(safe-area-inset-top,0px));transition:transform .5s var(--ease),background .5s}
 .nav.hide{transform:translateY(-105%)}
-.nav.scrolled{background:rgba(11,13,20,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid rgba(217,178,94,.14)}
-.brand{font-family:var(--serif);font-size:1.2rem;letter-spacing:.04em;display:flex;align-items:center;gap:.6rem}
+/* readable over any sky: a soft dark band behind the header at the top of the page, solid glass once scrolled */
+.nav::before{content:"";position:absolute;inset:0 0 -40px 0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,9,14,.82) 0%,rgba(8,9,14,.55) 60%,transparent 100%);transition:opacity .5s}
+.nav.scrolled::before{opacity:0}
+.nav .brand,.nav-links a{text-shadow:0 1px 2px rgba(8,9,14,.9),0 0 14px rgba(8,9,14,.75)}
+.nav.scrolled{background:rgba(9,10,16,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid rgba(217,178,94,.14)}
+.brand{font-family:var(--serif);font-size:1.3rem;letter-spacing:.04em;display:flex;align-items:center;gap:.6rem}
 .brand img{height:32px;width:auto}
 .brand span{color:var(--gold-light)}
 .nav-links{display:flex;gap:2rem;align-items:center}
-.nav-links a{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);transition:color .3s}
-.nav-links a:hover{color:var(--pearl)}
-.nav-cta{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(217,178,94,.6);color:var(--gold-light);padding:.55rem 1.2rem;border-radius:40px;transition:.35s}
+.nav-links a{font-size:.82rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#f3efe8;transition:color .3s}
+.nav-links a:hover{color:var(--gold-light)}
+.nav-cta{font-size:.78rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(236,212,154,.85);background:rgba(8,9,14,.45);color:var(--gold-light);padding:.55rem 1.2rem;border-radius:40px;transition:.35s}
 .nav-cta:hover{background:var(--gold);color:var(--night)}
 @media(max-width:768px){.nav-links a:not(.nav-cta){display:none}}
 
@@ -261,7 +266,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
   "@context": "https://schema.org",
   "@type": "Event",
   "name": "Inside the Mandala: Sound & Light Dome Journey",
-  "description": "A 360° sound & light dome journey at the Zeidler Dome, TELUS World of Science - Edmonton. One hour of live sound and mandala visuals for deep nervous-system rest.",
+  "description": "A 360° sound & light dome journey at the Zeidler Dome, TELUS World of Science - Edmonton. One hour of live sound under a living sky of flowers, galaxies and sacred geometry.",
   "startDate": "2027-01-17T18:30:00-07:00",
   "endDate": "2027-01-17T19:30:00-07:00",
   "eventStatus": "https://schema.org/EventScheduled",
@@ -325,7 +330,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     <div class="rule rise"></div>
     <div class="story rise">
       <p>Most of us move through the day slightly ahead of ourselves, already braced for what is next. It is rare to give the body a full hour with nothing asked of it.</p>
-      <p>That is what this hour is. The Zeidler Dome goes dark, live sound fills the room, and mandalas turn slowly across the whole ceiling above you. There is nothing to follow and nowhere to be. Most people feel their breath drop within the first few minutes.</p>
+      <p>That is what this hour is. The Zeidler Dome goes dark, live sound fills the room, and the whole ceiling above you becomes a slowly changing sky of flowers, stars, forest and sacred geometry. There is nothing to follow and nowhere to be. Most people feel their breath drop within the first few minutes.</p>
       <p class="signoff">Come as you are. Nothing is required of you here.</p>
     </div>
   </div>
@@ -340,7 +345,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     <h2 class="rise">A full-sensory immersion</h2>
     <p class="lead rise">You will be reclined for the full hour while sound and light move around you under the 360° dome. There is nothing to follow and nothing to do.</p>
     <div class="points rise">
-      <div class="point"><h3>Mandala Sky</h3><p>Mandalas and sacred geometry turn slowly across the full dome overhead. Watching them gives the mind something gentle to rest on.</p></div>
+      <div class="point"><h3>A Living Sky</h3><p>A lotus opens overhead, a sunflower drifts through the stars, aurora moves over a dark forest and fireflies rise between ancient trees. The whole dome keeps changing, slowly, so the mind has something gentle to rest on.</p></div>
       <div class="point"><h3>Live Sound</h3><p>Crystal bowls, gongs, and voice, played live in the room and carried through the dome's surround system. Low tones you feel in your chest as much as hear.</p></div>
       <div class="point"><h3>Nervous System Reset</h3><p>The hour is paced to move you out of a stress response and into the deep rest where the body does its repair work.</p></div>
       <div class="point"><h3>Reclined &amp; Held</h3><p>The dome seats recline, so you can settle back and stay there the whole hour. No posture to hold, no instructions to follow. A small number of beanbag chairs are also available, first come, first served.</p></div>
