@@ -2,9 +2,8 @@
    INSIDE THE MANDALA · the dome (Stage 2)
    You are reclined in a seat in the Zeidler Dome, looking up.
    Jeanine's fulldome renders (dome-master fisheye) are projected
-   onto a real 3D hemisphere overhead, the room is full of people
-   leaning back in their seats, lit only by the colour above them,
-   and gold light drifts down through the air.
+   onto a real 3D hemisphere overhead, and gold light drifts down
+   through the air.
 
    Scroll is the camera: you recline further back as you move
    through the page, and the sky melts from one render to the next
@@ -35,10 +34,9 @@ import * as THREE from './vendor/three.module.min.js';
   const weak = /SwiftShader|llvmpipe|Mali-4|Adreno \(TM\) 3/i.test(gpu);
   const lite = coarse || weak;
   const TIER = {
-    dpr: Math.min(devicePixelRatio || 1, lite ? 1.5 : 2),
-    tex: lite ? '-m' : '',
+    dpr: Math.min(devicePixelRatio || 1, weak ? 1.25 : 2),
+    tex: weak ? '-m' : '',
     sparks: lite ? 450 : 1400,
-    rows: lite ? 6 : 9,
   };
   if (debug) document.title = 'dome: ' + (lite ? 'lite' : 'full') + ' ' + gpu;
 
@@ -78,7 +76,7 @@ import * as THREE from './vendor/three.module.min.js';
   function loadSky(i) {
     return new Promise((res) => {
       loader.load('dome/sky' + i + TIER.tex + '.webp', (t) => {
-        t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; t.generateMipmaps = true;
+        t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); t.generateMipmaps = true;
         t.minFilter = THREE.LinearMipmapLinearFilter;
         skies[i] = t; averageColour(t.image, i); res(t);
       }, undefined, () => res(null));
@@ -128,7 +126,7 @@ import * as THREE from './vendor/three.module.min.js';
         col = col * breathe + pow(col, vec3(2.4)) * uGlow;
         // the horizon band and the room below it
         // the sky stops at the dome's lower edge, just under the seat line; below is the dark room
-        float horizon = smoothstep(-0.30, -0.03, up) * smoothstep(-0.40, -0.22, vWorld.y);
+        float horizon = smoothstep(-0.30, -0.03, up) * smoothstep(-0.16, 0.02, vWorld.y);
         vec3 room = uTint * 0.025 * smoothstep(-0.8, -0.1, vWorld.y);
         col = mix(room, col, horizon);
         gl_FragColor = vec4(col, 1.0);
@@ -139,79 +137,7 @@ import * as THREE from './vendor/three.module.min.js';
   dome.rotation.x = -0.45;   // the Zeidler is a tilted dome: the sky comes down in front of the seats
   scene.add(dome);
 
-  // ---------- the room: rows of people reclined, lit by the sky ----------
-  const personMat = new THREE.ShaderMaterial({
-    uniforms: { uTint: { value: new THREE.Color() }, uTime: { value: 0 } },
-    vertexShader: /* glsl */`
-      varying vec3 vN; varying vec3 vV; varying float vH;
-      void main(){
-        mat4 m = modelMatrix * instanceMatrix;
-        vec4 wp = m * vec4(position, 1.0);
-        vN = normalize(mat3(m) * normal);
-        vV = normalize(cameraPosition - wp.xyz);
-        vH = wp.y;
-        gl_Position = projectionMatrix * viewMatrix * wp;
-      }`,
-    fragmentShader: /* glsl */`
-      precision highp float;
-      uniform vec3 uTint; varying vec3 vN; varying vec3 vV; varying float vH;
-      void main(){
-        vec3 n = normalize(vN);
-        float rim = pow(1.0 - max(dot(n, normalize(vV)), 0.0), 5.0);
-        float top = max(n.y, 0.0);
-        vec3 col = vec3(0.006, 0.006, 0.010);
-        col += uTint * (rim * 0.16 + pow(top, 8.0) * 0.02);
-        col *= smoothstep(-5.0, 0.5, vH) * 0.8 + 0.2;   // lower rows sit deeper in the dark
-        gl_FragColor = vec4(col, 1.0);
-        #include <colorspace_fragment>
-      }`,
-  });
-
   const rand = (() => { let a = 2027; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; })();
-
-  // seats in curved rows facing the front of the dome (-z), stepping down toward the front
-  const seats = [];
-  for (let row = 0; row < TIER.rows; row++) {
-    const z = 1.4 - row * 1.2;
-    const y = -0.35 - row * 0.42;
-    const halfWidth = 4.8 + row * 0.85;
-    const count = Math.floor(halfWidth * 2 / 0.72);
-    for (let s = 0; s <= count; s++) {
-      const x = -halfWidth + s * (halfWidth * 2 / count);
-      if (row === 0 && Math.abs(x) < 0.9) continue;           // your own seat's neighbours give you room
-      const zc = z + (x * x) * 0.018;                           // gentle curve of the row
-      seats.push({ x, y, z: zc, filled: rand() > 0.14, lean: 0.62 + rand() * 0.16, turn: (rand() - 0.5) * 0.25 - x * 0.012, scale: 0.9 + rand() * 0.18 });
-    }
-  }
-  const nSeats = seats.length;
-  const nPeople = seats.filter((s) => s.filled).length;
-
-  const backGeo = new THREE.CapsuleGeometry(0.24, 0.36, 4, 12); backGeo.scale(1.1, 1, 0.28); backGeo.translate(0, 0.42, 0);
-  const headGeo = new THREE.SphereGeometry(0.13, 18, 14);
-  const torsoGeo = new THREE.CapsuleGeometry(0.2, 0.18, 4, 10);
-  const backs = new THREE.InstancedMesh(backGeo, personMat, nSeats);
-  const heads = new THREE.InstancedMesh(headGeo, personMat, nPeople);
-  const torsos = new THREE.InstancedMesh(torsoGeo, personMat, nPeople);
-  const M = new THREE.Matrix4(), Q = new THREE.Quaternion(), E = new THREE.Euler(), P = new THREE.Vector3(), S = new THREE.Vector3(1, 1, 1);
-  const up = new THREE.Vector3();
-  let hi = 0;
-  seats.forEach((s, i) => {
-    // seat back, reclined toward the back of the room
-    E.set(s.lean, s.turn, 0); Q.setFromEuler(E); P.set(s.x, s.y, s.z); S.set(1, 1, 1);
-    M.compose(P, Q, S); backs.setMatrixAt(i, M);
-    if (!s.filled) return;
-    up.set(0, 1, 0).applyQuaternion(Q);
-    const fwd = new THREE.Vector3(0, 0, -1).applyQuaternion(Q);
-    // torso lies along the seat back, head rests near the top
-    P.set(s.x, s.y, s.z).addScaledVector(up, 0.86).addScaledVector(fwd, 0.10);
-    S.setScalar(s.scale); M.compose(P, Q, S); torsos.setMatrixAt(hi, M);
-    P.set(s.x, s.y, s.z).addScaledVector(up, 1.13 * s.scale).addScaledVector(fwd, 0.05);
-    E.set(s.lean + (rand() - 0.5) * 0.3, s.turn + (rand() - 0.5) * 0.5, (rand() - 0.5) * 0.3); Q.setFromEuler(E);
-    S.set(s.scale, s.scale * 1.12, s.scale); M.compose(P, Q, S); heads.setMatrixAt(hi, M);
-    hi++;
-  });
-  scene.add(backs, heads, torsos);
-
 
   // ---------- gold light pouring down ----------
   const sparkGeo = new THREE.BufferGeometry();
@@ -261,7 +187,7 @@ import * as THREE from './vendor/three.module.min.js';
     new THREE.Vector3(0, 0.9, 5.75), new THREE.Vector3(0, 1.15, 5.6),
   ], false, 'catmullrom', 0.5);
   const gazePath = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0, 3.6, -18),   // arrival: the room in front, the sky opening above
+    new THREE.Vector3(0, 8.5, -18),   // arrival: the room in front, the sky opening above
     new THREE.Vector3(-3, 8, -16),   // looking up and to the left
     new THREE.Vector3(4, 15, -12),     // sweeping right, higher
     new THREE.Vector3(-1, 22, -9),    // flat on your back, straight up
@@ -319,7 +245,6 @@ import * as THREE from './vendor/three.module.min.js';
     domeMat.uniforms.uSpin.value = t * 0.012 + progress * 0.9;
     tint.copy(tints[ia]).lerp(tints[ib], mix);
     domeMat.uniforms.uTint.value.copy(tint);
-    personMat.uniforms.uTint.value.copy(tint);
     sparkMat.uniforms.uTime.value = t;
     sparkMat.uniforms.uTint.value.copy(tint);
 
