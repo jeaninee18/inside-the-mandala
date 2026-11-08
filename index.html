@@ -167,11 +167,20 @@ html.scrolled .scroll-cue{opacity:0}
 .guides-photo img{width:100%;height:auto;aspect-ratio:1600/1063;object-fit:cover}
 .guides-photo figcaption{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.7rem 1rem;background:rgba(11,13,20,.75)}
 @media(max-width:640px){.guides-photo{margin-top:1.4rem;border-radius:14px}}
-.hosts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;width:min(100%,860px);margin:2.2rem auto 0;text-align:left}
-.host{padding:1.5rem 1.5rem;border-radius:18px;border:1px solid rgba(236,212,154,.18);background:rgba(11,13,20,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.host h3{font-size:1.7rem;color:var(--gold-light)}
-.host .role{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rose-light);margin:.25rem 0 .8rem}
-.host p{font-size:.95rem;line-height:1.65;color:var(--pearl)}
+.hosts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem;width:min(100%,860px);margin:2.4rem auto 0;text-align:left}
+.host{position:relative;overflow:hidden;padding:2.1rem 1.9rem 1.8rem;border-radius:22px;
+  background:linear-gradient(160deg,rgba(29,27,48,.92),rgba(11,13,20,.94) 55%);
+  border:1px solid rgba(236,212,154,.22);box-shadow:0 30px 60px -32px rgba(0,0,0,.9),inset 0 1px 0 rgba(236,212,154,.12);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.host::before{content:"";position:absolute;left:1.9rem;right:1.9rem;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent)}
+.host-mark{position:absolute;right:1.2rem;top:-.6rem;font-family:var(--serif);font-size:7.5rem;line-height:1;color:rgba(236,212,154,.07);pointer-events:none}
+.host h3{font-size:2.3rem;color:var(--gold-light);letter-spacing:.01em}
+.host .role{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:.35rem 0 1.1rem;padding-bottom:1.1rem;border-bottom:1px solid rgba(236,212,154,.14)}
+.host .host-line{font-family:var(--serif);font-style:italic;font-size:1.28rem;line-height:1.35;color:var(--pearl);margin-bottom:.9rem}
+.host p{font-size:.95rem;line-height:1.7;color:var(--mist)}
+.host-tags{list-style:none;display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem}
+.host-tags li{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);padding:.42rem .75rem;border:1px solid rgba(236,212,154,.3);border-radius:40px;background:rgba(236,212,154,.05)}
+@media(max-width:720px){.hosts{grid-template-columns:1fr}.host{padding:1.8rem 1.4rem 1.5rem}.host::before{left:1.4rem;right:1.4rem}}
 .quotes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;width:min(100%,860px);margin:1rem auto 0}
 .quote{font-family:var(--serif);font-style:italic;font-size:1.12rem;line-height:1.45;color:var(--pearl);padding:1.2rem 1.4rem;border:1px solid rgba(236,212,154,.16);border-left:2px solid rgba(217,178,94,.7);border-radius:14px;text-align:left;background:rgba(11,13,20,.8);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .quote cite{display:block;margin-top:.6rem;font-family:var(--sans);font-style:normal;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);font-weight:500}
@@ -326,12 +335,13 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     <div class="veil"></div>
     <div class="chapter-no rise">Chapter one</div>
     <div class="eyebrow rise">The Invitation</div>
-    <h2 class="rise">An hour that belongs to you</h2>
+    <h2 class="rise">One night under Edmonton's iconic dome</h2>
     <div class="rule rise"></div>
     <div class="story rise">
-      <p>Most of us move through the day slightly ahead of ourselves, already braced for what is next. It is rare to give the body a full hour with nothing asked of it.</p>
-      <p>That is what this hour is. The Zeidler Dome goes dark, live sound fills the room, and the whole ceiling above you becomes a slowly changing sky of flowers, stars, forest and sacred geometry. There is nothing to follow and nowhere to be. Most people feel their breath drop within the first few minutes.</p>
-      <p class="signoff">Come as you are. Nothing is required of you here.</p>
+      <p>Generations of Edmontonians have looked up at the stars inside the Zeidler Dome. On January 17, for one hour, it becomes something else entirely.</p>
+      <p>The lights go down. Crystal bowls and gong rise live around you, carried through the dome's surround sound. Overhead, a lotus opens across the entire sky, a sunflower drifts through the stars, and a forest of fireflies grows up and over you, every scene made for this dome and this night.</p>
+      <p>You recline, you look up, and for sixty minutes nothing is asked of you. It is a sound bath unlike any you have been to before, and it happens once.</p>
+      <p class="signoff">One night only. Come and look up.</p>
     </div>
   </div>
 </section>
@@ -346,8 +356,8 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     <p class="lead rise">You will be reclined for the full hour while sound and light move around you under the 360° dome. There is nothing to follow and nothing to do.</p>
     <div class="points rise">
       <div class="point"><h3>A Living Sky</h3><p>A lotus opens overhead, a sunflower drifts through the stars, aurora moves over a dark forest and fireflies rise between ancient trees. The whole dome keeps changing, slowly, so the mind has something gentle to rest on.</p></div>
-      <div class="point"><h3>Live Sound</h3><p>Crystal bowls, gongs, and voice, played live in the room and carried through the dome's surround system. Low tones you feel in your chest as much as hear.</p></div>
-      <div class="point"><h3>Nervous System Reset</h3><p>The hour is paced to move you out of a stress response and into the deep rest where the body does its repair work.</p></div>
+      <div class="point"><h3>Live Sound</h3><p>Crystal bowls and gong, played live in the room and carried through the dome's surround system. Low tones you feel in your chest as much as hear.</p></div>
+      <div class="point"><h3>Deep Rest</h3><p>The hour is paced slowly, from the first bowl to the last, so you can settle back, let your eyes close if you like, and let the room carry you.</p></div>
       <div class="point"><h3>Reclined &amp; Held</h3><p>The dome seats recline, so you can settle back and stay there the whole hour. No posture to hold, no instructions to follow. A small number of beanbag chairs are also available, first come, first served.</p></div>
     </div>
   </div>
@@ -360,22 +370,28 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     <div class="chapter-no rise">Chapter three</div>
     <div class="eyebrow rise">Your Guides</div>
     <h2 class="rise">Jeanine &amp; Matt</h2>
-    <p class="lead rise">This is the first time The Mindful Mandala Wellness has brought a sound bath into the Zeidler Dome at TELUS World of Science - Edmonton. Jeanine and Matt have built the hour together with one aim, that the room feels safe enough for you to fully let go.</p>
+    <p class="lead rise">This is the first time The Mindful Mandala Wellness has brought a sound bath into the Zeidler Dome at TELUS World of Science - Edmonton. Jeanine and Matt built the hour together, the sound and the sky, with one aim: that the room feels safe enough for you to fully let go.</p>
     <figure class="guides-photo rise">
       <img src="jeanine-and-matt-dome.webp" srcset="jeanine-and-matt-dome-900.webp 900w, jeanine-and-matt-dome.webp 1600w" sizes="(max-width: 900px) 100vw, 860px" alt="Jeanine and Matt standing in the Zeidler Dome with the gong and crystal bowls, a forest of glowing trees and fireflies across the dome above them" loading="lazy" decoding="async" width="1600" height="1066" />
       <figcaption>Jeanine and Matt in the Zeidler Dome</figcaption>
     </figure>
     <div class="hosts rise">
-      <div class="host">
+      <article class="host">
+        <div class="host-mark" aria-hidden="true">J</div>
         <h3>Jeanine</h3>
-        <div class="role">Sound Alchemist · Founder of The Mindful Mandala Wellness</div>
-        <p>Jeanine's work with sound began in Mexico, where she first felt how much vibration could settle the body. She has been guiding sound baths since 2021, across hundreds of sessions, and now brings that practice home to Edmonton through The Mindful Mandala Wellness. In the dome she plays the crystal bowls, gong and voice live, so every sound you hear is made in the room with you.</p>
-      </div>
-      <div class="host">
+        <div class="role">Sound Alchemist · Creative Director · Web Designer</div>
+        <p class="host-line">She built this practice because she needed the rest herself.</p>
+        <p>Jeanine spent eleven years in Alberta's oil field, working long shifts and living in camp, and she knows what that life leaves in the body because she carried it herself. Searching for real rest led her to sound, to her training in Playa del Carmen, Mexico, and to founding The Mindful Mandala Wellness, where she has guided hundreds of sound baths since. She is also a web designer and developer, and the creative director behind the dome visuals, spending countless hours reviewing and re-rendering every scene until it felt right overhead. In the dome she plays the crystal singing bowls and gong live, so every note you feel is made in the room with you.</p>
+        <ul class="host-tags"><li>Sound Healing Institute, Mexico</li><li>Creative director</li><li>Web designer &amp; developer</li></ul>
+      </article>
+      <article class="host">
+        <div class="host-mark" aria-hidden="true">M</div>
         <h3>Matt</h3>
         <div class="role">Musician · Audio Engineer · Software Creator</div>
-        <p>Matt is a lifelong musician and a professional audio engineer who has spent years working live rooms. In the dome he plays live alongside Jeanine. He also built the software that makes the dome show possible, so every image moving across the sky above you comes to life through a program he wrote himself.</p>
-      </div>
+        <p class="host-line">The music in the room and the software behind the sky.</p>
+        <p>Matt is a lifelong musician and a professional audio engineer who has spent years running sound for live rooms. In the dome he plays live beside Jeanine. He also wrote the software that drives the dome show, so every lotus, forest and galaxy moving over you comes to life through a program he built himself. He runs Night Sky Sessions in the Zeidler Dome, so he knows this room inside out.</p>
+        <ul class="host-tags"><li>Live musician</li><li>Audio engineer</li><li>Night Sky Sessions</li></ul>
+      </article>
     </div>
     <div class="quotes rise">
       <blockquote class="quote">“I came in carrying a whole week in my shoulders. Somewhere in that hour the sound just took it from me. I was half asleep by the end and didn't want to get up.”<cite>Danielle R., Edmonton</cite></blockquote>
