@@ -89,7 +89,7 @@ import * as THREE from './vendor/three.module.min.js';
     side: THREE.BackSide, depthWrite: false,
     uniforms: {
       uA: { value: blank }, uB: { value: blank }, uMix: { value: 0 },
-      uTime: { value: 0 }, uSpin: { value: 0 }, uGlow: { value: lite ? 0.35 : 0.55 },
+      uTime: { value: 0 }, uSpin: { value: 0 }, uGlow: { value: 0.22 }, uSharp: { value: 1.1 },
       uTint: { value: new THREE.Color() },
     },
     vertexShader: /* glsl */`
@@ -97,7 +97,7 @@ import * as THREE from './vendor/three.module.min.js';
       void main(){ vDir = normalize(position); vWorld = normalize(mat3(modelMatrix) * position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
     fragmentShader: /* glsl */`
       precision highp float;
-      uniform sampler2D uA, uB; uniform float uMix, uTime, uSpin, uGlow; uniform vec3 uTint;
+      uniform sampler2D uA, uB; uniform float uMix, uTime, uSpin, uGlow, uSharp; uniform vec3 uTint;
       varying vec3 vDir; varying vec3 vWorld;
       #define HALF_PI 1.5707963
       float hash(vec2 p){ p = fract(p*vec2(123.34,456.21)); p += dot(p,p+45.32); return fract(p.x*p.y); }
@@ -117,7 +117,13 @@ import * as THREE from './vendor/three.module.min.js';
         // the slow liquid swirl of the Act 2 reel: the centre turns a little faster than the rim
         float twist = 0.10 * sin(uTime * 0.11) + 0.05 * sin(uTime * 0.043 + 1.7);
         vec2 uv = domeUV(d, twist);
+        // live sharpening: an unsharp mask one screen pixel wide, so edges stay crisp when the sky is magnified
+        vec2 px = fwidth(uv) * 0.9;
         vec3 a = texture2D(uA, uv).rgb, b = texture2D(uB, uv).rgb;
+        vec3 aN = texture2D(uA, uv + vec2(px.x, 0.0)).rgb + texture2D(uA, uv - vec2(px.x, 0.0)).rgb + texture2D(uA, uv + vec2(0.0, px.y)).rgb + texture2D(uA, uv - vec2(0.0, px.y)).rgb;
+        vec3 bN = texture2D(uB, uv + vec2(px.x, 0.0)).rgb + texture2D(uB, uv - vec2(px.x, 0.0)).rgb + texture2D(uB, uv + vec2(0.0, px.y)).rgb + texture2D(uB, uv - vec2(0.0, px.y)).rgb;
+        a = max(a + (a - aN * 0.25) * uSharp, 0.0);
+        b = max(b + (b - bN * 0.25) * uSharp, 0.0);
         // melt, not a fade: a drifting noise field decides which part of the sky changes first
         float n = fbm(uv * 3.2 + vec2(uTime * 0.02, -uTime * 0.015));
         float m = smoothstep(n - 0.18, n + 0.18, uMix * 1.36 - 0.18);
@@ -214,7 +220,7 @@ import * as THREE from './vendor/three.module.min.js';
     const w = innerWidth, h = innerHeight;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    camera.fov = w / h < 0.8 ? 84 : 72;   // portrait phones see more of the dome
+    camera.fov = w / h < 0.8 ? 96 : 84;   // wider view = less magnification = sharper sky   // portrait phones see more of the dome
     camera.updateProjectionMatrix();
   }
   addEventListener('resize', resize, { passive: true });
