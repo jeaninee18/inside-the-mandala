@@ -13,25 +13,28 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Inside the Mandala: Sound &amp; Light Dome Journey | Edmonton</title>
-<meta name="description" content="A 360° sound & light dome journey at TELUS World of Science, Edmonton. One hour of live sound and mandala visuals for deep nervous-system rest. Jan 17, 2027." />
+<meta name="description" content="A 360° sound & light dome journey at TELUS World of Science, Edmonton. One hour of live sound under a living sky of flowers, galaxies and sacred geometry. Jan 17, 2027." />
 <meta property="og:title" content="Inside the Mandala: Sound & Light Dome Journey" />
-<meta property="og:description" content="A live sound bath beneath a 360° sky of mandalas. Zeidler Dome, TELUS World of Science - Edmonton · January 17, 2027." />
+<meta property="og:description" content="A live sound bath beneath a 360° living sky of flowers, galaxies and sacred geometry. Zeidler Dome, TELUS World of Science - Edmonton · January 17, 2027." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.insidethemandala.com/" />
-<meta property="og:image" content="https://www.insidethemandala.com/cover-eventbrite-2160x1080.png" />
+<meta property="og:image" content="https://www.insidethemandala.com/og-inside-the-mandala-2027.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta name="theme-color" content="#0b0d14" />
 <link rel="canonical" href="https://www.insidethemandala.com/" />
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Inside the Mandala: Sound & Light Dome Journey" />
-<meta name="twitter:description" content="A live sound bath beneath a 360° sky of mandalas. Zeidler Dome, TELUS World of Science, Edmonton · Jan 17, 2027." />
-<meta name="twitter:image" content="https://www.insidethemandala.com/cover-eventbrite-2160x1080.png" />
+<meta name="twitter:description" content="A live sound bath beneath a 360° living sky of flowers, galaxies and sacred geometry. Zeidler Dome, TELUS World of Science, Edmonton · Jan 17, 2027." />
+<meta name="twitter:image" content="https://www.insidethemandala.com/og-inside-the-mandala-2027.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<link rel="preload" as="image" href="mandala-glow.webp" />
+<link rel="preload" as="image" href="dome/poster-d.webp" media="(min-aspect-ratio:4/5)" fetchpriority="high" />
+<link rel="preload" as="image" href="dome/poster-m.webp" media="(max-aspect-ratio:4/5)" fetchpriority="high" />
 
 <style>
 /* ============================================================
@@ -67,10 +70,11 @@ img{max-width:100%;display:block}
     radial-gradient(50% 40% at 85% 80%, rgba(154,132,104,.18), transparent 70%),
     linear-gradient(180deg, var(--night-3) 0%, var(--night-2) 45%, var(--night) 100%)}
 /* the still mandala for anyone without the live sky */
-.poster::after{content:"";position:absolute;left:50%;top:38%;width:min(90vw,620px);aspect-ratio:1;transform:translate(-50%,-50%);
-  background:url(mandala-glow.webp) center/contain no-repeat;opacity:.55}
-html.sky-on .poster::after{opacity:0;transition:opacity 1.6s ease}
-#sky{position:fixed;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none;opacity:0;transition:opacity 1.8s ease}
+/* the poster is a still of the dome's exact opening frame, so the live sky takes over without a visible change */
+.poster::after{content:"";position:absolute;inset:0;background:url(dome/poster-d.webp) center/cover no-repeat}
+@media (max-aspect-ratio:4/5){.poster::after{background-image:url(dome/poster-m.webp)}}
+
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none;opacity:0;transition:opacity .6s ease}
 #sky.on{opacity:1}
 .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -79,20 +83,25 @@ html.sky-on .poster::after{opacity:0;transition:opacity 1.6s ease}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
   padding:1.2rem var(--gutter);padding-top:calc(1.2rem + env(safe-area-inset-top,0px));transition:transform .5s var(--ease),background .5s}
 .nav.hide{transform:translateY(-105%)}
-.nav.scrolled{background:rgba(11,13,20,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid rgba(217,178,94,.14)}
-.brand{font-family:var(--serif);font-size:1.2rem;letter-spacing:.04em;display:flex;align-items:center;gap:.6rem}
+/* readable over any sky: a soft dark band behind the header at the top of the page, solid glass once scrolled */
+.nav::before{content:"";position:absolute;inset:0 0 -40px 0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,9,14,.82) 0%,rgba(8,9,14,.55) 60%,transparent 100%);transition:opacity .5s}
+.nav.scrolled::before{opacity:0}
+.nav .brand,.nav-links a{text-shadow:0 1px 2px rgba(8,9,14,.9),0 0 14px rgba(8,9,14,.75)}
+.nav.scrolled{background:rgba(9,10,16,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid rgba(217,178,94,.14)}
+.brand{font-family:var(--serif);font-size:1.3rem;letter-spacing:.04em;display:flex;align-items:center;gap:.6rem}
 .brand img{height:32px;width:auto}
 .brand span{color:var(--gold-light)}
 .nav-links{display:flex;gap:2rem;align-items:center}
-.nav-links a{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);transition:color .3s}
-.nav-links a:hover{color:var(--pearl)}
-.nav-cta{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(217,178,94,.6);color:var(--gold-light);padding:.55rem 1.2rem;border-radius:40px;transition:.35s}
+.nav-links a{font-size:.82rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#f3efe8;transition:color .3s}
+.nav-links a:hover{color:var(--gold-light)}
+.nav-cta{font-size:.78rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(236,212,154,.85);background:rgba(8,9,14,.45);color:var(--gold-light);padding:.55rem 1.2rem;border-radius:40px;transition:.35s}
 .nav-cta:hover{background:var(--gold);color:var(--night)}
 @media(max-width:768px){.nav-links a:not(.nav-cta){display:none}}
 
 /* ---------- chapters ---------- */
-.ch{position:relative;min-height:170svh}
-.ch .pin{position:sticky;top:0;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem var(--gutter) 5rem}
+.ch{position:relative}
+.ch .pin{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem var(--gutter) 5rem}
 .ch .pin>*{position:relative}
 /* the veil: words always win over the sky */
 .veil{position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(70% 72% at 50% 48%,rgba(11,13,20,.9),rgba(11,13,20,.55) 58%,transparent 84%)}
@@ -117,10 +126,21 @@ html.sky-on .poster::after{opacity:0;transition:opacity 1.6s ease}
 #arrival .meta{margin-top:2rem;display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--pearl);font-weight:500}
 #arrival .meta b{color:var(--gold-light);font-weight:400}
 #arrival .meta i{color:var(--gold);font-style:normal}
+@media(max-width:640px){
+  #arrival .kicker{font-size:.9rem;letter-spacing:.24em;line-height:1.6;margin-bottom:1.2rem}
+  #arrival h1{font-size:clamp(3.4rem,14vw,4.6rem)}
+  #arrival h1 em{font-size:.5em;letter-spacing:.03em;margin-top:.7rem}
+  #arrival .meta{font-size:.9rem;letter-spacing:.1em;gap:.5rem 1rem;line-height:1.5}
+}
 .cta-row{margin-top:2.4rem;display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center}
-.scroll-cue{position:absolute;bottom:calc(1.6rem + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:.6rem;transition:opacity .6s}
-.scroll-cue .dash{width:1px;height:34px;background:linear-gradient(var(--gold),transparent);animation:dash 2.4s ease-in-out infinite}
-@keyframes dash{0%,100%{transform:scaleY(.5);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+/* scroll cue: fixed to the bottom of the screen until the visitor starts scrolling */
+.scroll-cue,.ch .pin>.scroll-cue{position:fixed;z-index:80;bottom:calc(1.4rem + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.55rem;pointer-events:none;transition:opacity .6s ease}
+.scroll-cue span:first-child{font-size:.78rem;font-weight:500;letter-spacing:.38em;padding-left:.38em;text-transform:uppercase;color:var(--gold-light);
+  text-shadow:0 1px 2px rgba(8,9,14,1),0 0 14px rgba(8,9,14,.9)}
+.scroll-cue .chev{width:14px;height:14px;border-right:1.5px solid var(--gold-light);border-bottom:1.5px solid var(--gold-light);transform:rotate(45deg);
+  filter:drop-shadow(0 0 6px rgba(8,9,14,.9));animation:cue 2s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:translateY(-3px) rotate(45deg);opacity:.5}50%{transform:translateY(5px) rotate(45deg);opacity:1}}
 html.scrolled .scroll-cue{opacity:0}
 
 /* ---------- buttons ---------- */
@@ -160,18 +180,30 @@ html.scrolled .scroll-cue{opacity:0}
 .guides-photo img{width:100%;height:auto;aspect-ratio:1600/1063;object-fit:cover}
 .guides-photo figcaption{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.7rem 1rem;background:rgba(11,13,20,.75)}
 @media(max-width:640px){.guides-photo{margin-top:1.4rem;border-radius:14px}}
-.hosts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;width:min(100%,860px);margin:2.2rem auto 0;text-align:left}
-.host{padding:1.5rem 1.5rem;border-radius:18px;border:1px solid rgba(236,212,154,.18);background:rgba(11,13,20,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.host h3{font-size:1.7rem;color:var(--gold-light)}
-.host .role{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rose-light);margin:.25rem 0 .8rem}
-.host p{font-size:.95rem;line-height:1.65;color:var(--pearl)}
+.hosts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem;width:min(100%,860px);margin:2.4rem auto 0;text-align:left}
+.host{position:relative;overflow:hidden;padding:2.1rem 1.9rem 1.8rem;border-radius:22px;
+  background:linear-gradient(160deg,rgba(29,27,48,.92),rgba(11,13,20,.94) 55%);
+  border:1px solid rgba(236,212,154,.22);box-shadow:0 30px 60px -32px rgba(0,0,0,.9),inset 0 1px 0 rgba(236,212,154,.12);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.host::before{content:"";position:absolute;left:1.9rem;right:1.9rem;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent)}
+.host-mark{position:absolute;right:1.2rem;top:-.6rem;font-family:var(--serif);font-size:7.5rem;line-height:1;color:rgba(236,212,154,.07);pointer-events:none}
+.host h3{font-size:2.3rem;color:var(--gold-light);letter-spacing:.01em}
+.host .role{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:.35rem 0 1.1rem;padding-bottom:1.1rem;border-bottom:1px solid rgba(236,212,154,.14)}
+.host .host-line{font-family:var(--serif);font-style:italic;font-size:1.28rem;line-height:1.35;color:var(--pearl);margin-bottom:.9rem}
+.host p{font-size:.95rem;line-height:1.7;color:var(--mist)}
+.host-tags{list-style:none;display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem}
+.host-link{color:var(--gold-light);text-decoration:underline;text-decoration-color:rgba(236,212,154,.45);text-underline-offset:3px}
+.host-link:hover{text-decoration-color:var(--gold-light)}
+.host-tags a{color:inherit}
+.host-tags li{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);padding:.42rem .75rem;border:1px solid rgba(236,212,154,.3);border-radius:40px;background:rgba(236,212,154,.05)}
+@media(max-width:720px){.hosts{grid-template-columns:1fr}.host{padding:1.8rem 1.4rem 1.5rem}.host::before{left:1.4rem;right:1.4rem}}
 .quotes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;width:min(100%,860px);margin:1rem auto 0}
 .quote{font-family:var(--serif);font-style:italic;font-size:1.12rem;line-height:1.45;color:var(--pearl);padding:1.2rem 1.4rem;border:1px solid rgba(236,212,154,.16);border-left:2px solid rgba(217,178,94,.7);border-radius:14px;text-align:left;background:rgba(11,13,20,.8);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .quote cite{display:block;margin-top:.6rem;font-family:var(--sans);font-style:normal;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);font-weight:500}
 @media(max-width:760px){.hosts,.quotes{grid-template-columns:1fr}.host{padding:1.2rem}.host p{font-size:.88rem}.quote{font-size:1.02rem}}
 
 /* ---------- chapter 5: details ---------- */
-#details .pin{justify-content:flex-start;padding-top:38svh}
+#details .pin{justify-content:flex-start;padding-top:7rem}
 #details h2{font-size:clamp(2.2rem,5.5vw,3.6rem)}
 .det-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem;width:min(100%,900px);margin:2.2rem auto 0}
 .det h3{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-family:var(--sans);font-weight:400;margin-bottom:.5rem}
@@ -218,6 +250,14 @@ footer{position:relative;border-top:1px solid rgba(217,178,94,.14);background:li
 .foot-grid>div,.foot-grid>nav{min-width:0}
 .foot-brand .brand{font-size:1.4rem;margin-bottom:.9rem}
 .foot-brand p{font-size:.9rem;max-width:300px}
+.ig-follow{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.1rem;padding:.6rem 1rem;border:1px solid rgba(236,212,154,.45);border-radius:40px;
+  font-size:.74rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);background:rgba(236,212,154,.06);transition:background .3s,border-color .3s}
+.ig-follow:hover{background:rgba(236,212,154,.14);border-color:var(--gold-light)}
+.ig-follow span{text-transform:none;letter-spacing:.04em;font-size:.86rem}
+.ig-follow{white-space:nowrap;align-self:center;width:auto;max-width:max-content}
+.reserve-ig{margin:1.6rem auto 0;background:rgba(8,9,14,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+@media(max-width:420px){.ig-follow{font-size:.66rem;gap:.45rem;padding:.55rem .85rem}.ig-follow span{font-size:.8rem}}
+
 .foot-col h4{font-family:var(--sans);font-weight:400;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
 .foot-col a{display:block;color:var(--mist);font-size:.9rem;margin-bottom:.6rem;transition:color .3s}
 .foot-col a:hover{color:var(--gold-light)}
@@ -245,7 +285,7 @@ footer{position:relative;border-top:1px solid rgba(217,178,94,.14);background:li
 
 /* ---------- reduced motion / no sky: a quiet version of the same design ---------- */
 @media(prefers-reduced-motion:reduce){
-  .scroll-cue .dash{animation:none}
+  .scroll-cue .chev{animation:none}
   .rise{opacity:1!important;transform:none!important}
 }
 html:not(.sky-live) .ch{min-height:0}
@@ -259,13 +299,13 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
   "@context": "https://schema.org",
   "@type": "Event",
   "name": "Inside the Mandala: Sound & Light Dome Journey",
-  "description": "A 360° sound & light dome journey at the Zeidler Dome, TELUS World of Science - Edmonton. One hour of live sound and mandala visuals for deep nervous-system rest.",
+  "description": "A 360° sound & light dome journey at the Zeidler Dome, TELUS World of Science - Edmonton. One hour of live sound under a living sky of flowers, galaxies and sacred geometry.",
   "startDate": "2027-01-17T18:30:00-07:00",
   "endDate": "2027-01-17T19:30:00-07:00",
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "location": {"@type": "Place","name": "Zeidler Dome, TELUS World of Science - Edmonton","address": {"@type": "PostalAddress","streetAddress": "11211 142 St NW","addressLocality": "Edmonton","addressRegion": "AB","postalCode": "T5M 4A1","addressCountry": "CA"}},
-  "image": ["https://www.insidethemandala.com/cover-eventbrite-2160x1080.png"],
+  "image": ["https://www.insidethemandala.com/og-inside-the-mandala-2027.jpg"],
   "organizer": {"@type": "Organization","name": "The Mindful Mandala Wellness","url": "https://www.themindfulmandalawellness.com"},
   "offers": [
     {"@type": "Offer","name": "Single","price": "111","priceCurrency": "CAD","availability": "https://schema.org/InStock","url": "https://www.eventbrite.ca/e/inside-the-mandala-a-360-dome-sound-journey-tickets-1991310060997"},
@@ -309,7 +349,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
       <a href="#reserve" class="btn btn-gold">Reserve Your Spot</a>
       <a href="#invitation" class="btn btn-ghost">Begin the Journey</a>
     </div>
-    <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><span class="dash"></span></div>
+    <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><span class="chev"></span></div>
   </div>
 </section>
 
@@ -319,12 +359,13 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     <div class="veil"></div>
     <div class="chapter-no rise">Chapter one</div>
     <div class="eyebrow rise">The Invitation</div>
-    <h2 class="rise">An hour that belongs to you</h2>
+    <h2 class="rise">One night under Edmonton's iconic dome</h2>
     <div class="rule rise"></div>
     <div class="story rise">
-      <p>Most of us move through the day slightly ahead of ourselves, already braced for what is next. It is rare to give the body a full hour with nothing asked of it.</p>
-      <p>That is what this hour is. The Zeidler Dome goes dark, live sound fills the room, and mandalas turn slowly across the whole ceiling above you. There is nothing to follow and nowhere to be. Most people feel their breath drop within the first few minutes.</p>
-      <p class="signoff">Come as you are. Nothing is required of you here.</p>
+      <p>Generations of Edmontonians have looked up at the stars inside the Zeidler Dome. On January 17, for one hour, it becomes something else entirely.</p>
+      <p>The lights go down. Crystal bowls and gong rise live around you, carried through the dome's surround sound. Overhead, a lotus opens across the entire sky, a sunflower drifts through the stars, and a forest of fireflies grows up and over you, every scene made for this dome and this night.</p>
+      <p>You recline, you look up, and for sixty minutes nothing is asked of you. It is a sound bath unlike any you have been to before, and it happens once.</p>
+      <p class="signoff">One night only. Come and look up.</p>
     </div>
   </div>
 </section>
@@ -338,10 +379,10 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     <h2 class="rise">A full-sensory immersion</h2>
     <p class="lead rise">You will be reclined for the full hour while sound and light move around you under the 360° dome. There is nothing to follow and nothing to do.</p>
     <div class="points rise">
-      <div class="point"><h3>Mandala Sky</h3><p>Mandalas and sacred geometry turn slowly across the full dome overhead. Watching them gives the mind something gentle to rest on.</p></div>
-      <div class="point"><h3>Live Sound</h3><p>Crystal bowls, gongs, and voice, played live in the room and carried through the dome's surround system. Low tones you feel in your chest as much as hear.</p></div>
-      <div class="point"><h3>Nervous System Reset</h3><p>The hour is paced to move you out of a stress response and into the deep rest where the body does its repair work.</p></div>
-      <div class="point"><h3>Reclined &amp; Held</h3><p>The dome seats recline, so you can settle back and stay there the whole hour. No posture to hold, no instructions to follow.</p></div>
+      <div class="point"><h3>A Living Sky</h3><p>A lotus opens overhead, a sunflower drifts through the stars, aurora moves over a dark forest and fireflies rise between ancient trees. The whole dome keeps changing, slowly, so the mind has something gentle to rest on.</p></div>
+      <div class="point"><h3>Live Sound</h3><p>Crystal bowls and gong, played live in the room and carried through the dome's surround system. Low tones you feel in your chest as much as hear.</p></div>
+      <div class="point"><h3>Deep Rest</h3><p>The hour is paced slowly, from the first bowl to the last, so you can settle back, let your eyes close if you like, and let the room carry you.</p></div>
+      <div class="point"><h3>Reclined &amp; Held</h3><p>The dome seats recline, so you can settle back and stay there the whole hour. No posture to hold, no instructions to follow. A small number of beanbag chairs are also available, first come, first served.</p></div>
     </div>
   </div>
 </section>
@@ -353,22 +394,28 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
     <div class="chapter-no rise">Chapter three</div>
     <div class="eyebrow rise">Your Guides</div>
     <h2 class="rise">Jeanine &amp; Matt</h2>
-    <p class="lead rise">This is the first time The Mindful Mandala Wellness has brought a sound bath into the Zeidler Dome at TELUS World of Science - Edmonton. Jeanine and Matt have built the hour together with one aim, that the room feels safe enough for you to fully let go.</p>
+    <p class="lead rise">This is the first time The Mindful Mandala Wellness has brought a sound bath into the Zeidler Dome at TELUS World of Science - Edmonton. Jeanine and Matt built the hour together, the sound and the sky, with one aim: that the room feels safe enough for you to fully let go.</p>
     <figure class="guides-photo rise">
-      <img src="jeanine-and-matt-dome.webp" srcset="jeanine-and-matt-dome-900.webp 900w, jeanine-and-matt-dome.webp 1600w" sizes="(max-width: 900px) 100vw, 860px" alt="Jeanine and Matt standing in the Zeidler Dome with the gong and crystal bowls, a glowing mandala across the dome above them" loading="lazy" decoding="async" width="1600" height="1063" />
+      <img src="jeanine-and-matt-dome.webp" srcset="jeanine-and-matt-dome-900.webp 900w, jeanine-and-matt-dome.webp 1600w" sizes="(max-width: 900px) 100vw, 860px" alt="Jeanine and Matt standing in the Zeidler Dome with the gong and crystal bowls, a forest of glowing trees and fireflies across the dome above them" loading="lazy" decoding="async" width="1600" height="1066" />
       <figcaption>Jeanine and Matt in the Zeidler Dome</figcaption>
     </figure>
     <div class="hosts rise">
-      <div class="host">
+      <article class="host">
+        <div class="host-mark" aria-hidden="true">J</div>
         <h3>Jeanine</h3>
-        <div class="role">Sound Alchemist · Founder of The Mindful Mandala Wellness</div>
-        <p>Jeanine's work with sound began in Mexico, where she first felt how much vibration could settle the body. She has been guiding sound baths since 2021, across hundreds of sessions, and now brings that practice home to Edmonton through The Mindful Mandala Wellness. She stays attentive to the room from the first note to the last, adjusting as she goes, so you can stop managing yourself for an hour.</p>
-      </div>
-      <div class="host">
+        <div class="role">Sound Alchemist · Creative Director · Web Designer</div>
+        <p class="host-line">She built this practice because she needed the rest herself.</p>
+        <p>Jeanine spent eleven years in Alberta's oil field, working long shifts and living in camp, and she knows what that life leaves in the body because she carried it herself. Searching for real rest led her to sound, to her training in Playa del Carmen, Mexico, and to founding <a class="host-link" href="https://www.instagram.com/themindfulmandala/" target="_blank" rel="noopener">The Mindful Mandala Wellness</a>, where she has guided hundreds of sound baths since. She is also a web designer and developer, and the creative director behind the dome visuals, spending countless hours reviewing and re-rendering every scene until it felt right overhead. In the dome she plays the crystal singing bowls and gong live, right there with you.</p>
+        <ul class="host-tags"><li>Sound Healing Institute, Mexico</li><li>Creative director</li><li>Web designer &amp; developer</li></ul>
+      </article>
+      <article class="host">
+        <div class="host-mark" aria-hidden="true">M</div>
         <h3>Matt</h3>
-        <div class="role">Live Sound · Audio Engineer</div>
-        <p>Matt is a lifelong musician and a professional audio engineer who has spent years working live rooms. He mixes the dome so the sound stays full and warm without ever getting loud enough to jar you, and he watches the levels throughout the hour so nothing catches you off guard.</p>
-      </div>
+        <div class="role">Musician · Audio Engineer · Software Creator</div>
+        <p class="host-line">The music in the room and the software behind the sky.</p>
+        <p>Matt is a lifelong musician and a professional audio engineer who has spent years running sound for live rooms. He has driven the Alberta Rockies from Jasper to Nordegg on clear nights, chasing the darkest skies to photograph the stars, and he brings that same wonder into the Zeidler Dome, where he runs <a class="host-link" href="https://www.instagram.com/nightskysessions/" target="_blank" rel="noopener">NightSky Sessions</a>. For Inside the Mandala he plays live beside Jeanine, and he wrote the software that drives the dome show, so every lotus, forest and galaxy moving over you comes to life through a program he built himself.</p>
+        <ul class="host-tags"><li>Live musician</li><li>Audio engineer</li><li><a href="https://www.instagram.com/nightskysessions/" target="_blank" rel="noopener">NightSky Sessions</a></li></ul>
+      </article>
     </div>
     <div class="quotes rise">
       <blockquote class="quote">“I came in carrying a whole week in my shoulders. Somewhere in that hour the sound just took it from me. I was half asleep by the end and didn't want to get up.”<cite>Danielle R., Edmonton</cite></blockquote>
@@ -420,6 +467,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
         <input type="email" id="emailInput" placeholder="Your email" required aria-label="Your email" />
         <button type="submit" class="btn btn-ghost">Keep Me Posted</button>
       </form>
+      <a class="ig-follow reserve-ig" href="https://www.instagram.com/insidethemandala.dome/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>Follow along <span>@insidethemandala.dome</span></a>
       <div id="formMsg" role="status"></div>
       <p class="fineprint">No spam, ever. Just this journey and the ones that follow.</p>
     </div>
@@ -433,7 +481,8 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
   <div class="foot-grid">
     <div class="foot-brand">
       <a href="#arrival" class="brand"><img src="logo.png" alt="The Mindful Mandala Wellness" />Inside the <span>Mandala</span></a>
-      <p>A sound &amp; light dome journey by The Mindful Mandala Wellness. Held in the Zeidler Dome, TELUS World of Science - Edmonton.</p>
+      <p>A sound &amp; light dome journey by <a class="host-link" href="https://www.instagram.com/themindfulmandala/" target="_blank" rel="noopener">The Mindful Mandala Wellness</a>. Held in the Zeidler Dome, TELUS World of Science - Edmonton.</p>
+      <a class="ig-follow" href="https://www.instagram.com/insidethemandala.dome/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>Follow the dome <span>@insidethemandala.dome</span></a>
     </div>
     <nav class="foot-col" aria-label="Footer">
       <h4>Explore</h4>
@@ -452,7 +501,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
   <div class="foot-bottom">
     <span>© 2026 The Mindful Mandala Wellness · Edmonton, Alberta</span>
     <div class="foot-socials">
-      <a href="https://www.instagram.com/themindfulmandala/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.instagram.com/insidethemandala.dome/" target="_blank" rel="noopener">Instagram</a>
       <a href="mailto:hello@themindfulmandalawellness.com">Email</a>
       <a href="privacy.html">Privacy</a>
       <a href="https://www.themindfulmandalawellness.com" target="_blank" rel="noopener">Website</a>
@@ -466,7 +515,7 @@ html:not(.sky-live) .rise{opacity:1;transform:none}
   <a href="https://www.eventbrite.ca/e/inside-the-mandala-a-360-dome-sound-journey-tickets-1991310060997" class="btn btn-gold" rel="noopener">Reserve</a>
 </div>
 
-<script type="module" src="sky.js"></script>
+<script type="module" src="dome.js"></script>
 <script>
 (function(){
   /* ---- nav, scroll cue, sticky cta ---- */
