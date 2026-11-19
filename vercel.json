@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/Projects/inside-the-mandala/index.html" },
+    { "source": "/:path((?!Projects/).*)", "destination": "/Projects/inside-the-mandala/:path" }
+  ]
+}
